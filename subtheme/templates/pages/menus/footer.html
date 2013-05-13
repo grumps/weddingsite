@@ -1,0 +1,42 @@
+<div class ="links">
+{% load i18n future pages_tags %}
+
+{% spaceless %}
+
+
+{% for page in page_branch %}
+    {% if page.is_primary %}
+        {% if forloop.first %}
+            
+        {% endif %}
+        {% if page.in_menu %}
+        {% endif %}
+    {% endif %}
+
+    {% if page.in_menu %}
+        {% if forloop.first and not page.parent.in_menu and not page.is_primary %}
+        {% endif %}
+        <a {% if page.is_current_or_ascendant %} class="hover"{% endif %}
+        href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+    {% endif %}
+
+    {% if page.in_menu and page.has_children_in_menu %}{% page_menu page %}{% endif %}
+
+    {% if page.in_menu %}
+        {% if forloop.first and not page.parent.in_menu and not page.is_primary %}
+        {% endif %}
+    {% endif %}
+
+    {% if page.is_primary %}
+        {% if page.in_menu %}
+        {% endif %}
+        {% if forloop.last %}
+            
+        {% endif %}
+    {% endif %}        
+{% endfor %}
+
+
+{% endspaceless %}
+</div>
+
