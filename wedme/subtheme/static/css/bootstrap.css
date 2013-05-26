@@ -230,6 +230,7 @@ body {
   line-height: 21px;
   color: #2c3e50;
   background-color: #ffffff;
+  padding-top: 50px
 }
 
 a {
@@ -3947,13 +3948,16 @@ input[type="submit"].btn.btn-mini {
 .alert-block p + p {
   margin-top: 5px;
 }
-.brand
-{
+
+.brand {
+    background: url("/static/media/uploads/i/mo.png") no-repeat scroll center center transparent;
+    height: 75px;
+    margin-left: auto;
+    margin-right: auto;
     position: absolute;
-    width: 100%;
-    left: 0;
-    text-align: center;
-    margin: auto;
+    top: 0;
+    width: 940px;
+    z-index: 1060;
 }
 .nav {
   margin-bottom: 21px;
@@ -4423,12 +4427,15 @@ input[type="submit"].btn.btn-mini {
 .navbar .brand {
   display: block;
   float: left;
-  padding: 14.5px 20px 14.5px;
+  padding-top: 0px;
+  padding-bot: 0px
   margin-left: -20px;
   font-size: 20px;
   font-weight: 200;
   color: #ffffff;
   text-shadow: 0 1px 0 #2c3e50;
+  overflow: allow;
+  max-height: 40px;
 }
 
 .navbar .brand:hover,

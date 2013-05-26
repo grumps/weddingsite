@@ -44,8 +44,10 @@ $(function() {
 
 </head>
 <body id="{% block body_id %}body{% endblock %}">
-
+<div class="container">
+{% if settings.SITE_TITLE %}<div class="brand"><a href="/">{{ settings.SITE_TITLE }}</a></div>{% endif %}
 <div class="navbar navbar-fixed-top">
+	
 <div class="navbar-inner"> 
 <div class="container">
     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -53,7 +55,7 @@ $(function() {
        <span class="icon-bar"></span>
        <span class="icon-bar"></span>
     </a>
-    {% if settings.SITE_TITLE %}<div class="brand"><a href="/">{{ settings.SITE_TITLE }}</a></div>{% endif %}
+    
     {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
     <div class="nav-collapse">
 	    {% page_menu "pages/menus/dropdown.html" %}
@@ -61,7 +63,7 @@ $(function() {
 </div>
 </div>
 </div>
-
+</div>
 <div class="container">
 {% nevercache %}
 {% for message in messages %}
