@@ -16,6 +16,7 @@ grappelli-safe==0.2.21
 html5lib==0.95
 icalendar==3.0.1b2
 jedi==0.5b5
+-e git+https://github.com/stbarnabas/mezzanine-events.git@0ef72bd07be88bd75806808ca13945b432e9f202#egg=mezzanine_events-dev
 paramiko==1.9.0
 pep8==1.4.4
 psycopg2==2.4.6
