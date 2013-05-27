@@ -4447,7 +4447,6 @@ input[type="submit"].btn.btn-mini {
   color: #ffffff;
   text-shadow: 0 1px 0 #2c3e50;
   overflow: allow;
-  max-height: 40px;
 }
 
 .navbar .brand:hover,
