@@ -44,7 +44,12 @@ $(function() {
 {% block extra_head %}{% endblock %}
 
 </head>
-<body id="{% block body_id %}body{% endblock %}">
+
+<body id="{% block body_id %}body {% endblock %}">
+{% if on_home %}
+<div class="homepage">
+</div>
+{% endif %}	
 <div class="container-fluid">
 <div class="navbar navbar-fixed-top">
 	
@@ -91,6 +96,7 @@ $(function() {
 <br style="clear:both">
 
 </div>
+
 </footer>
 
 {% include "includes/footer_scripts.html" %}

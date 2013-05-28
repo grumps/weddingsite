@@ -9,6 +9,7 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+ 
 
 .clearfix {
   *zoom: 1;
@@ -20,7 +21,7 @@
   line-height: 0;
   content: "";
 }
-
+s
 .clearfix:after {
   clear: both;
 }

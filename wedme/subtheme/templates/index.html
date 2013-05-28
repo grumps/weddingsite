@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% load mezzanine_tags event %}
 {% block meta_title %}{% trans "Home" %}{% endblock %}
 
 {% block breadcrumb_menu %}
@@ -8,5 +8,7 @@
 {% endblock %}
 
 {% block main %}
-
+{{debug}}
+<h2> Count Down: {{ page.event.date }} </h2>
 {% endblock %}
+
