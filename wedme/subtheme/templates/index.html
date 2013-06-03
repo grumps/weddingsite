@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load mezzanine_tags event %}
+{% load index_extra %}
 {% block meta_title %}{% trans "Home" %}{% endblock %}
 
 {% block breadcrumb_menu %}
@@ -8,7 +8,23 @@
 {% endblock %}
 
 {% block main %}
-{{debug}}
-<h2> Count Down: {{ page.event.date }} </h2>
+{% countdown as days%}
+<div class="row span12">
+<div class="row span7">
+<h1>Oh Snap We're getting Married</h1>
+</div>
+<div class="span3 pull-right alert alert-info">
+    <div class="media" >
+        <a class="pull-left" href="#">
+        <img class="media-object" data-src="holder.js/64x64"  alt="Calendar" src="{{ STATIC_URL }}img/icons/Calendar@2x.png" style="width:64px; height:64px;">
+        </a>
+    <div class="media-body">
+        <h4 class="media-heading"><strong>Only {{ days }} days to go!</strong></h4>
+        <p>We're really excited about the wedding, and really hope you can join us.</p>
+        </div>
+    </div>
+</div>
+</div>
+    </div>
 {% endblock %}
 
