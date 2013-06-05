@@ -1,0 +1,10 @@
+.hp-bttm {
+    position: absolute;
+    bottom: 180px;
+}
+.hp-title {
+    color: #f1c40f;
+}
+no-boarder {
+    box-shadow: none;
+}
