@@ -89,13 +89,16 @@ $(function() {
 
 </div>
 </div>
-
-<footer>
-<div class="container">
+    {% if not on_home %}
+<div class="navbar navbar-fixed-bottom">
+    <div class="links"></div>
 {% page_menu "pages/menus/footer.html" %}
+        {% endif %}
 <br style="clear:both">
-
+ </div>
 </div>
+<footer>
+
 
 </footer>
 
