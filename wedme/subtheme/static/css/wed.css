@@ -1,10 +1,24 @@
+/*!
+ * Max Resnick
+ *
+ * Copyright 2013 Max Resnick
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built to overide Mezzanine and Bootsrap CSS @max_resnick
+ */
 .hp-bttm {
-    position: absolute;
-    bottom: 180px;
+
 }
 .hp-title {
     color: #f1c40f;
+    font-size: 100px;
+    overflow-wrap: break-word;
+    line-height: 100%;
 }
-no-boarder {
+.no-boarder {
+    box-shadow: none;
+}
+img {
     box-shadow: none;
 }
