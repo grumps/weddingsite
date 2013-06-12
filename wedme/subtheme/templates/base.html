@@ -20,6 +20,8 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/mezzanine.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/wed.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/wed.responsive.css">
 {% ifinstalled cartridge.shop %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
 {% endifinstalled %}
@@ -89,20 +91,17 @@ $(function() {
 
 </div>
 </div>
-    {% if not on_home %}
+
 <div class="navbar navbar-fixed-bottom">
     <div class="links"></div>
 {% page_menu "pages/menus/footer.html" %}
-        {% endif %}
+
 <br style="clear:both">
  </div>
 </div>
 <footer>
 
-
-</footer>
-
 {% include "includes/footer_scripts.html" %}
-
+</footer>
 </body>
 </html>
