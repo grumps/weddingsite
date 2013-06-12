@@ -12,13 +12,18 @@
 }
 .hp-title {
     color: #f1c40f;
-    font-size: 100px;
+    font-size: 75px;
     overflow-wrap: break-word;
-    line-height: 100%;
+    line-height: 1em;
+    text-align: center;
 }
 .no-boarder {
     box-shadow: none;
 }
 img {
     box-shadow: none;
+}
+.page-header {
+    border-bottom: 2px solid #f39c12;
+    margin: 21px 0 31.5px;
 }
