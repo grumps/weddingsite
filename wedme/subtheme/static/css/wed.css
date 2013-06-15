@@ -8,7 +8,8 @@
  * Designed and built to overide Mezzanine and Bootsrap CSS @max_resnick
  */
 .hp-bttm {
-
+    position: absolute;
+    bottom: 0px;
 }
 .hp-title {
     color: #f1c40f;
@@ -27,3 +28,4 @@ img {
     border-bottom: 2px solid #f39c12;
     margin: 21px 0 31.5px;
 }
+.navbar .brand {height: 2px;}

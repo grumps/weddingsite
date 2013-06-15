@@ -1,0 +1,15 @@
+/*!
+ * Max Resnick
+ *
+ * Copyright 2013 Max Resnick
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built to overide Mezzanine and Bootsrap CSS @max_resnick
+ */
+
+@media (max-width: 480px) {
+    .hp-bttm {
+
+    }
+}
