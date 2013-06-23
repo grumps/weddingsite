@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript"> google.load("jquery", "1.4.2"); </script><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript"> google.load("jqueryui", "1.8.6"); </script><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+    <link media="all" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css" rel="stylesheet">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+</head>
+</head>
+<body>
+<script src="artist.js" type="text/javascript"></script>
+<div class="demo">
+    <h2>Artist Suggestion Demo </h2>
+    <div class="ui-widget">
+        <label for="artist">Enter an artist: </label>
+        <input id="artist" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+    </div>
+
+    <div class="ui-widget">
+        Result: <div class="ui-widget-content" id="log"> </div>
+    </div>
+    <h2> Song</h2>
+    <div class="ui-widget">
+        <label for="song">Enter song by artist:</label>
+        <input id="song" class="ui-autocomplete-input" autocomplet="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+    </div>
+</div>
+<div class="demo-description">
+    <p>This demonstrates using <a href="http://developer.echonest.com/docs/v4/artist.html#suggest-beta">The Echo Nest artist/suggest API</a> with jQuery's
+     <a href="http://jqueryui.com/demos/autocomplete/">autocomplete</a> widget.
+</p></div>
+
+</body>
+</html>
