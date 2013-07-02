@@ -29,3 +29,10 @@ img {
     margin: 21px 0 31.5px;
 }
 .navbar .brand {height: 2px;}
+
+
+#map {
+    position:absolute;
+    height:50%;
+    margin-left: 0px;
+}
