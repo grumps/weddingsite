@@ -44,7 +44,12 @@ $(function() {
 <![endif]-->
 
 {% block extra_head %}{% endblock %}
-
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.js'></script>
+  <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.css' rel='stylesheet' />
+  <!--[if lte IE 8]>
+    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.ie.css' rel='stylesheet' >
+  <![endif]-->
 </head>
 
 <body id="{% block body_id %}body {% endblock %}">
@@ -84,7 +89,7 @@ $(function() {
 <div class="container">
 <div class="row">
 
-<div class="span9 middle">
+<div class="span12">
     {% block main %}{% endblock %}
 </div>
 
