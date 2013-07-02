@@ -1,0 +1,64 @@
+
+{% extends "pages/page.html" %}
+{% load pages_tags mezzanine_tags i18n future %}
+{% load event %}
+
+{% block main %}{{ block.super }}
+
+<div style="float:right;">
+	<a href='{{page.event|google_calendar_url}}' target="_blank" class="btn-small btn-block btn-info">
+		Add to Google Calendar
+	</a>
+	<a href='{{page.event|icalendar_url}}' class="btn btn-small btn-block btn-info">
+		Add to Outlook/iCal
+	</a>
+</div>
+
+<p class='lead'>
+	{{page.event.date}} from {{page.event.start_time}} to {{page.event.end_time}}
+</p>
+
+<div class="row-fluid">
+	<div class="span4">
+		<b>Address</b>
+		<address>
+			{{page.event.location|linebreaksbr}}<br />
+			<a href='{{page.event|google_nav_url}}' class="btn btn-small btn-block btn-info">
+				Get Directions
+			</a>
+		</address>
+	</div>
+	<div class="span4">
+		<b>Attire</b>
+		<address>
+			<ul>
+				{% for speaker in page.event.attire %}
+					{{attire}}
+				{% endfor %}
+			</ul>
+		</address>
+	</div>
+	<div class="span4">
+		<b>RSVP</b>
+		<p>
+			{{page.event.rsvp|linebreaksbr|link_emails}}
+		</p>
+	</div>
+</div>
+
+{{page.event.content|richtext_filter|safe}}
+
+ {# {% google_static_map page.event 670 150 10 %}  #}
+
+
+
+
+
+<div class="span12" id='map'></div>
+<script type='text/javascript'>
+var map = L.mapbox.map('map', 'grumps.map-tjj3l5wx');
+L.control.scale().addTo(map);
+</script>
+
+
+{% endblock %}
