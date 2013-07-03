@@ -20,7 +20,7 @@ class Event(Page, RichText):
     end_time = models.TimeField()
     attire = models.TextField(blank=True, help_text="Leave blank if not relevant. Write one name per line.")
     location = models.TextField()
-    mapbox_id = models.TextField()
+    mapbox_id = models.TextField(max_length=160, blank=True, help_text="URL of Map from MapBox.")
     mappable_location = models.CharField(max_length=128, blank=True,
                                          help_text="This address will be used to calculate latitude and longitude. Leave blank and set Latitude and Longitude to specify the location yourself, or leave all three blank to auto-fill from the Location field.")
     lat = models.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True, verbose_name="Latitude",
