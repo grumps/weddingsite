@@ -2,63 +2,67 @@
 {% extends "pages/page.html" %}
 {% load pages_tags mezzanine_tags i18n future %}
 {% load event %}
+{% load extra %}
+{% countdown as days %}
 
 {% block main %}{{ block.super }}
-
-<div style="float:right;">
-	<a href='{{page.event|google_calendar_url}}' target="_blank" class="btn-small btn-block btn-info">
-		Add to Google Calendar
-	</a>
-	<a href='{{page.event|icalendar_url}}' class="btn btn-small btn-block btn-info">
-		Add to Outlook/iCal
-	</a>
+<div class="container">
+<div class="span8">
+{{page.event.content|richtext_filter|safe}}
+</div>
 </div>
 
-<p class='lead'>
-	{{page.event.date}} from {{page.event.start_time}} to {{page.event.end_time}}
-</p>
-
+<div class="pull-right">
+{{ days }}
+</div>
 <div class="row-fluid">
-	<div class="span4">
-		<b>Address</b>
+	<div class="span3">
+    <h3>When:</h3>
+	<address>
+        Friday <br />
+        {{page.event.date}} <br />
+        {{page.event.start_time}} to {{page.event.end_time}}
+    </address>
+        <address>
+       <b>Get it on your calendar</b>
+        <div class="row-fluid">
+            <div class="span6"><a href='{{page.event|google_calendar_url}}' class="btn btn-small btn-block btn-info">Google</a></div>
+            <div class="span6 pull-right"><a href='{{page.event|icalendar_url}}' class="btn btn-small btn-block btn-info">Outlook/iCal</a></div>
+       </div>
+        </div>
+        </address>
+	<div class="span3">
+		<h3>Where:</h3>
 		<address>
 			{{page.event.location|linebreaksbr}}<br />
-			<a href='{{page.event|google_nav_url}}' class="btn btn-small btn-block btn-info">
+		</address>
+            <div class="span6 middle">
+            <a href='{{page.event|google_nav_url}}' class="btn btn-small btn-block btn-info">
 				Get Directions
 			</a>
-		</address>
+            </div>
 	</div>
-	<div class="span4">
-		<b>Attire</b>
-		<address>
-			<ul>
-				{% for speaker in page.event.attire %}
-					{{attire}}
-				{% endfor %}
-			</ul>
-		</address>
-	</div>
-	<div class="span4">
-		<b>RSVP</b>
+	{% if page.event.attire|length > 0 %}
+    <div class="span3">
+        <h3>Attire:</h3>
+        <p>{{ page.event.attire|linebreaksbr }}</p>
+    </div>
+    {% endif %}
+    {% if page.event.attire|length > 0 %}
+	<div class="span3">
+		<h3>RSVP:</h3>
 		<p>
-			{{page.event.rsvp|linebreaksbr|link_emails}}
+			{{page.event.rsvp|linebreaksbr}}
 		</p>
 	</div>
+    {% endif %}
 </div>
 
-{{page.event.content|richtext_filter|safe}}
-
- {# {% google_static_map page.event 670 150 10 %}  #}
-
-
-
-
-
-<div class="span12" id='map'></div>
+<div class="container">
+<div class="span8 offset2 map" id='map'></div>
+</div>
 <script type='text/javascript'>
 var map = L.mapbox.map('map', 'grumps.map-tjj3l5wx');
 L.control.scale().addTo(map);
 </script>
-
-
 {% endblock %}
