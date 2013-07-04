@@ -85,3 +85,9 @@ L.control.scale().addTo(map);
 </div>
 
 {% endblock %}
+{% block footer_extra %}
+<script type='text/javascript'>
+var map = L.mapbox.map('map', 'grumps.map-tjj3l5wx');
+L.control.scale().addTo(map);
+</script>
+{% endblock %}
