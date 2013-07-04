@@ -22,12 +22,13 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/mezzanine.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/wed.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/wed.responsive.css">
+
 {% ifinstalled cartridge.shop %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
 {% endifinstalled %}
+
 {% block extra_css %}{% endblock %}
 {% endcompress %}
-
 {% compress js %}
 <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
@@ -42,16 +43,7 @@ $(function() {
 <!--[if lt IE 9]>
 <script src="{{ STATIC_URL }}js/html5shiv.js"></script>
 <![endif]-->
-
 {% block extra_head %}{% endblock %}
-{#  TODO Conditional for page. #}
-<!---Mapbox --->
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-  <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.js'></script>
-  <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.css' rel='stylesheet' />
-  <!--[if lte IE 8]>
-    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.ie.css' rel='stylesheet' >
-  <![endif]-->
 </head>
 
 <body id="{% block body_id %}body {% endblock %}">
@@ -109,6 +101,7 @@ $(function() {
  </div>
 </div>
 {% include "includes/footer_scripts.html" %}
+{% block footer_extra %} {% endblock %}
 </footer>
 </body>
 </html>
