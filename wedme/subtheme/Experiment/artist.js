@@ -36,9 +36,52 @@ $("#artist").autocomplete({
             $("#log").append(ui.item ? ui.item.id + ' ' + ui.item.label : '(nothing)');
             $("#song").attr('disabled', false);
             $("#song").autocomplete("option", "source");
-            getSongs();
+            var differ = jQuery.Deferred();
+            differ.resolve(function () {
+                $.ajax({
+                    url: "http://developer.echonest.com/api/v4/artist/songs",
+                    dataType: "jsonp",
+                    data: {
+                        results: 1,
+                        api_key: "KTPZMU3CDARU82WJO",
+                        format: "jsonp",
+                        name: $("#artist").val(),
+                    },
+                    success: function (data) {
+                        songTotal = data.response.total; //modify exit condition
+                        console.log('hello  ' + songTotal);
+                    }
+                });
+                return songTotal
+            });
 
+            differ.done( function(songTotal) {
+                var startindex = 0;
+                for (var j = 0; j <= songTotal;j++) {
+                    console.log('numsongs  ' + songTotal);
+                    (function(_startindex){
+                        $.ajax({
+                            url: "http://developer.echonest.com/api/v4/artist/songs",
+                                dataType: "jsonp",
+                            data: {
+                                    results: 100,
+                                    api_key: "KTPZMU3CDARU82WJO",
+                                    format: "jsonp",
+                            name: $("#artist").val(),
+                            start: _startindex
+                            },
 
+                        success: function (data) {
+                            var songs = data.response.songs;
+                                for (var i = 0; i < songs.length; i++) {
+                                     songsList.push(songs[i].title);
+                                }
+                        }
+                        });
+                    })(startindex);
+                     startindex+=100;
+                }
+        });
         },
         change: function (event, ui) {
 
@@ -50,14 +93,11 @@ $("#artist").autocomplete({
 var songsList = [];
 
 function getSongs() {
-    var numsongs = 2; //at least 2 runs.
     var startindex = 0;
-    runonceloop: //<~~~~Referenced in question
-    for (var j = 0; j <= _numsongs;j++) {
-        console.log('numsongs  ' + numsongs);
+    for (var j = 0; j <= songTotal;j++) {
+        console.log('numsongs  ' + songTotal);
         (function(_startindex){
         $.ajax({
-
             url: "http://developer.echonest.com/api/v4/artist/songs",
             dataType: "jsonp",
             data: {
@@ -71,19 +111,14 @@ function getSongs() {
 
             success: function (data) {
                 var songs = data.response.songs;
-                _numsongs = data.response.total; //modify exit condition
                 for (var i = 0; i < songs.length; i++) {
                     songsList.push(songs[i].title);
-
                 }
 
             }
         });
         })(startindex);
         startindex+=100;
-        if (j <= numsongs) {
-            break
-        }
     }
 };
 
