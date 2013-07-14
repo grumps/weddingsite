@@ -53,6 +53,13 @@ $("#artist").autocomplete({
             //Unlock Song Field.
             $("#song").attr('disabled', false);
             //Gets total # of songs first.
+            //remove the current input
+            terms.pop();
+            //add the selected value
+            terms.push( ui.item.value)
+            //add placeholder to get the comma-and-space at the end
+
+
             var getSongs = $.ajax({
                     url: "http://developer.echonest.com/api/v4/artist/songs",
                     dataType: "jsonp",
@@ -60,7 +67,7 @@ $("#artist").autocomplete({
                         results: 1,
                         api_key: "KTPZMU3CDARU82WJO",
                         format: "jsonp",
-                        name: $("#artist").val(),
+                        name: ui.item.value
                     },
                     success: function (data) {
                         songTotal = data.response.total;
@@ -94,7 +101,7 @@ $("#artist").autocomplete({
                      startindex+=100;
                 }
         });
-
+            return false;
             //$("#song").autocomplete("option", "source");
         },
         change: function (event, ui) {
