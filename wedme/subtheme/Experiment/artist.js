@@ -47,16 +47,17 @@ $("#artist").autocomplete({
         minLength: 3,
 
         select: function (event, ui) {
-            var terms = split(this.value)
+            var artist = split(this.value)
             //$("#log").empty();
             //$("#log").append(ui.item ? ui.item.id + ' ' + ui.item.label : '(nothing)');
             //Unlock Song Field.
             $("#song").attr('disabled', false);
             //Gets total # of songs first.
             //remove the current input
-            terms.pop();
+            artist.pop();
             //add the selected value
-            terms.push( ui.item.value)
+            artist.push( ui.item.value)
+            this.value = artist
             //add placeholder to get the comma-and-space at the end
 
 
@@ -73,21 +74,22 @@ $("#artist").autocomplete({
                         songTotal = data.response.total;
                         console.log('hello  ' + songTotal);
                     }
-            //Key to sequencing is actually calling 'done' since ajax is a promise method.
+            //Key to sequencing is actually calling 'done' since ajax is a promise.
             }).done(function() {
                 var startindex = 0;
                 for (; startindex <= songTotal;) {
                     console.log('numsongs  ' + songTotal);
                     (function(_startindex){
                         $.ajax({
-                            url: "http://developer.echonest.com/api/v4/artist/songs",
+                            url: "http://developer.echonest.com/api/v4/song/search",
                                 dataType: "jsonp",
                             data: {
                                     results: 100,
                                     api_key: "KTPZMU3CDARU82WJO",
                                     format: "jsonp",
-                            name: $("#artist").val(),
-                            start: _startindex
+                            artist: ui.item.value,
+                            start: _startindex,
+                            sort: 'song_hotttnesss-desc'
                             },
 
                         success: function (data) {
