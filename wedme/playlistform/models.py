@@ -15,11 +15,11 @@ class Artist(models.Model):
     def __unicode__(self):
         return self.name
 
-
+#TODO drop app and reload.
 class Song(models.Model):
     song = models.CharField(max_length=200)
-    songs_id = models.CharField(max_length=50)
-    artists = models.ForeignKey(Artist)
+    song_id = models.CharField(max_length=50)
+    artist = models.ForeignKey(Artist)
 
 
 class SubmitterForm(ModelForm):

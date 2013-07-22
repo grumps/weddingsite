@@ -8,6 +8,7 @@ def playListAdd(request):
     SongFormInlineSet = inlineformset_factory(Artist, Song, can_delete=False, extra=1, max_num=5, )
     SubmitterFormSet = SubmitterForm
     ArtistFormSet = ArtistForm
+    #TODO Handle POST
     if request.method == 'POST':
         formset = SongFormInlineSet(request.POST)
         artist = ArtistFormSet(request.POST)
