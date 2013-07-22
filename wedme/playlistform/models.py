@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import ModelForm
+from django.forms import ModelForm, HiddenInput
 
 
 class Submitter(models.Model):
@@ -30,8 +30,6 @@ class SubmitterForm(ModelForm):
 class ArtistForm(ModelForm):
     class Meta:
         model = Artist
-
-
-class SongForm(ModelForm):
-    class Meta:
-        model = Song
+        widgets = {
+            'artist_id': HiddenInput,
+        }

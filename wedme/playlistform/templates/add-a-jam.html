@@ -27,7 +27,6 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
     {{ page_form.content|richtext_filter|safe }}
     {% endeditable %}
     {% endwith %}
-
     <form method="post">
         {% fields_for form3 %}
         {% fields_for form2 %}
