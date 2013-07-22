@@ -12,8 +12,14 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
 {% block main %}
 {{ block.super }}
 {% if request.GET.sent %}
-    {% editable page.form.response %}
-    {{ page.form.response|richtext_filter|safe }}
+    {% editable page.formset.response %}
+    {{ page.formset.response|richtext_filter|safe }}
+    {% endeditable %}
+    {% editable page.form2.response %}
+    {{ page.form2.response|richtext_filter|safe }
+    {% endeditable %}
+    {% editable page.form3.response %}
+    {{ page.form3.response|richtext_filter|safe }
     {% endeditable %}
 {% else %}
     {% with page.form as page_form %}
@@ -21,8 +27,12 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
     {{ page_form.content|richtext_filter|safe }}
     {% endeditable %}
     {% endwith %}
-    <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-        {% fields_for form %}
+
+    <form method="post">
+        {% fields_for form3 %}
+        {% fields_for form2 %}
+        {{ formset.management_form }}
+        {% fields_for formset %}
         <div class="form-actions">
             <input class="btn btn-primary btn-large" type="submit" value="{{ page.form.button_text }}">
         </div>

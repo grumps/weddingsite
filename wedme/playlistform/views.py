@@ -1,18 +1,27 @@
-from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
-from django.forms.models import modelformset_factory
-from wedme.playlistform.models import SubmitterForm, ArtistForm, SongForm
+from django.shortcuts import render_to_response, render
+from django.http import HttpResponseRedirect
+from django.forms.models import inlineformset_factory
+from wedme.playlistform.models import SubmitterForm, ArtistForm, SongForm, Artist, Song
 
 
 def playlistAdd(request):
-    return HttpResponse("hello, world")
-    # SubmitterFormSet = modelformset_factory(SubmitterForm)
-    # if request.method == 'POST':
-    #     formset = SubmitterFormSet(request.POST)
-    #     if formset.is_valid():
-    #         formset.save()
-    #     else:
-    #         formset = SubmitterFormSet()
-    #     return render_to_response('add-a-jam.html', {
-    #         "formset": formset,
-    #     })
+    SongFormInlineSet = inlineformset_factory(Artist, Song, can_delete=False, extra=1, max_num=5)
+    SubmitterFormSet = SubmitterForm
+    ArtistFormSet = ArtistForm
+    if request.method == 'POST':
+        formset = SongFormInlineSet(request.POST)
+        form2 = ArtistFormSet(request.POST)
+        form3 = SubmitterFormSet(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        formset = SongFormInlineSet()
+        form2 = ArtistFormSet()
+        form3 = SubmitterFormSet()
+    return render(request, 'add-a-jam.html', {
+            "formset": formset,
+            "form2": form2,
+            "form3": form3,
+        })
+
+

@@ -9,7 +9,7 @@
 $(function () {
 //Song total Initialization
     var songTotal;
-//List of Songs By Artist ordered by "hottttnesss"
+//List of Songs By Artist ordered by "hottttnesss" if over 1000 songs by artist songs of hotness < 1000 wont' be available.
     var songsList = [];
 
     //Split s.t. all items added have a comma separator.
@@ -48,11 +48,9 @@ $("#artist").autocomplete({
 
         select: function (event, ui) {
             var artist = split(this.value)
-            //$("#log").empty();
-            //$("#log").append(ui.item ? ui.item.id + ' ' + ui.item.label : '(nothing)');
             //Unlock Song Field.
             $("#song").attr('disabled', false);
-            //Gets total # of songs first.
+
             //remove the current input
             artist.pop();
             //add the selected value
@@ -60,7 +58,7 @@ $("#artist").autocomplete({
             this.value = artist
             //add placeholder to get the comma-and-space at the end
 
-
+            //Gets total # of songs first, then uses search api to return songs in order of hottness.
             var getSongs = $.ajax({
                     url: "http://developer.echonest.com/api/v4/artist/songs",
                     dataType: "jsonp",
@@ -76,6 +74,10 @@ $("#artist").autocomplete({
                     }
             //Key to sequencing is actually calling 'done' since ajax is a promise.
             }).done(function() {
+                //Ensures array is empty. Required if user changes artist.
+                songsList = [];
+                //clears any input in songs field.
+                $("#song").val('');
                 var startindex = 0;
                 for (; startindex <= songTotal;) {
                     console.log('numsongs  ' + songTotal);
@@ -107,9 +109,9 @@ $("#artist").autocomplete({
             //$("#song").autocomplete("option", "source");
         },
         change: function (event, ui) {
-
             if (!ui.item) {
                  $(this).val('');
+
              }
         }
 });
@@ -141,4 +143,3 @@ $("#song").autocomplete({
     });
 
 });
-

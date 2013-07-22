@@ -15,10 +15,11 @@ class Artist(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Song(models.Model):
     song = models.CharField(max_length=200)
     songs_id = models.CharField(max_length=50)
-    artists = models.ManyToManyField(Artist)
+    artists = models.ForeignKey(Artist)
 
 
 class SubmitterForm(ModelForm):
