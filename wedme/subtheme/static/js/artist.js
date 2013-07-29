@@ -6,7 +6,44 @@
  * To change this template use File | Settings | File Templates.
  */
 /** Baseline code from EchoNest Blog */
+
 $(function () {
+    //setter for current number of song inputs
+    var currentField = 1;
+    //disable add button.
+$("#add").attr('disabled',true);
+    //handler for add button
+$("#add").unbind('click').click(function(event) {
+    event.stopPropagation();
+    //Bunch of crappy HTML variables.
+    var maxFields = $('#id_song_set-MAX_NUM_FORMS').val();
+    var songSet = 'song_set-' + currentField + '-song';
+    var autoFill = 'autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">';
+    var inputField = '<input id="' + songSet + '" type="text" class="song ui-autocomplete-input input-large" name="' + songSet + '"' + autoFill;
+    console.log(inputField)
+    var hiddenField = '<input type=\"hidden\" name=\"' + songSet + '_id\" id=\"'+ songSet + '_id">';
+    var overLoad = '<div class="alert alert-block"> \
+                <button type="button" class="close" data-dismiss="alert">&times;</button> \
+                <h4>Warning!</h4> \
+                Best check yo self, 5 songs at at time. \
+                </div>';
+    currentField ++;
+    if (currentField < maxFields) {
+        $(this).before(inputField);
+        $(this).after(hiddenField);
+
+    }
+    else if (currentField == maxFields) {
+        $(this).before(inputField);
+        $(this).after(hiddenField);
+        $('#add').hide();
+
+    }
+    else {
+        $(this).before(overLoad)
+    }
+
+});
 //Song total Initialization
     var songTotal;
 //List of Songs By Artist ordered by "hottttnesss" if over 1000 songs by artist songs of hotness < 1000 wont' be available.
@@ -115,31 +152,38 @@ $("#artist").autocomplete({
              }
         }
 });
-$("#song").autocomplete({
-        source: function( request, response ) {
-                response($.ui.autocomplete.filter(
-                    songsList, extractLast (request.term)
-                ));
-        },
-        minLength: 0,
-        select: function (event, ui) {
-            var terms = split(this.value)
-            //remove the current input
-            terms.pop();
-            //add the selected value
-            terms.push( ui.item.value)
-            //add placeholder to get the comma-and-space at the end
-            terms.push("");
-            this.value = terms.join( ", ")
-            return false;
-            //$("#log").empty();
-            //$("#log").append(ui.item ? ui.item.id + ' ' + ui.item.label : '(nothing)');
-        },
-        change: function (event, ui) {
-            if (!ui.item) {
-                 $(this).val('');
-             }
+$('[class^="song"]').on("click", songComplete);
+    function songComplete() {
+        $(this).autocomplete({
+            source: function (request, response) {
+                    response($.ui.autocomplete.filter(
+                        songsList, extractLast(request.term)
+                    ));
+            },
+            minLength: 0,
+            select: function (event, ui) {
+                //var terms = split(this.value);
+                //remove the current input
+                terms.pop();
+                //add the selected value
+                terms.push(ui.item.value)
+                //add placeholder to get the comma-and-space at the end
+                terms.push("");
+                this.value = terms.join(", ")
+                //enable add button*/
+                $("#add").attr('disabled', false);
+                return false;
+                //$("#log").empty();
+                //$("#log").append(ui.item ? ui.item.id + ' ' + ui.item.label : '(nothing)');
+            },
+            change: function (event, ui) {
+                if (!ui.item) {
+                    $(this).val('');
+                    //disable add button
+                    $("#add").attr('disabled', true);
+                }
+            }
+        });
         }
-    });
 
 });

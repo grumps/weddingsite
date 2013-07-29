@@ -7,6 +7,7 @@
 <script>
 $(function() {$('.middle :input:visible:enabled:first').focus();});
 </script>
+</script><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -27,15 +28,63 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
     {{ page_form.content|richtext_filter|safe }}
     {% endeditable %}
     {% endwith %}
-    <form method="post">
-        {% fields_for form3 %}
-        {% fields_for form2 %}
-        {{ formset.management_form }}
-        {% fields_for formset %}
-        <div class="form-actions">
-            <input class="btn btn-primary btn-large" type="submit" value="{{ page.form.button_text }}">
-        </div>
-    </form>
-{% endif %}
+    <div class="row-fluid">
+        <div class="span10 pull-right">
+            <form method="post">
+                <fieldset>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <legend>Your Info</legend>
+                            <div class="form-inline">
+                            {{ submitter.id }}
+                                <p>
+                               <input class="input-large" placeholder="First Name" type="text" id="{{ submitter.first_name.html_name }}">
+                               <input class="input-large" placeholder="Last Name" type="text" id="{{ submitter.last_name.html_name }}">
+                                </p>
+                            </div>
+                            <div class="controls">
+                                <p><input class="input-xlarge" type="text" type="email" id="inputEmail {{ submitter.email.html_name }}" placeholder="Email"></p>
+                            </div>
+                    </div>
+                    <div class="span4">
+                        <legend>Select an Artist</legend>
+                            {{ artist.id  }}
+                            <div class="controls">
+                                <input class="ui-autocomplete-input input-large" autocomplete="off" type="text" role="textbox" aria-autocomplete="list" aria-haspopup="true" id="{{ artist.artist.html_name }}" >
+                            </div>
+                            {{ artist.artist_id }}
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span10">
+                        <legend>Select a Song</legend>
+                        {{ formset.management_form }}
+                        {% for form in formset %}
+                            {{ form.id }}
+                            <div class="form-inline">
+                                <input id="{{ form.song.html_name }}" name="{{ form.song.html_name }}" type="text" class="{{ form.song.label|lower }} ui-autocomplete-input input-large" autocomplet="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                <button class="btn btn-info" id="add" type="button"><i class="icon-plus icon-white"></i></button>
+                                <input id="{{ form.song_id.html_name }}" type="hidden" name="{{ form.song_id.html_name }}">
+                            </div>
+                        {% endfor %}
+                     <div class="row-fluid">
+                        <div clas="span3 pull-right">
 
+                        </div>
+                     </div>
+                </div>
+                <div class="row-fluid">
+                   <div class="form-actions span10">
+                    <input class="btn btn-primary btn-large" type="submit" value="{{ page.form.button_text }}">
+                </div>
+                </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+{% block footer_extra %}
+    <script src="{{ STATIC_URL}}js/artist.js"></script>
 {% endblock %}
