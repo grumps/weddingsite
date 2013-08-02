@@ -23,10 +23,10 @@ $("#add").unbind('click').click(function(event) {
     console.log(inputField)
     var hiddenField = '<input type=\"hidden\" name=\"' + songSet + '_id\" id=\"'+ songSet + '_id">';
     var overLoad = '<div class="alert alert-block"> \
-                <button type="button" class="close" data-dismiss="alert">&times;</button> \
-                <h4>Warning!</h4> \
-                Best check yo self, 5 songs at at time. \
-                </div>';
+                    <button type="button" class="close" data-dismiss="alert">&times;</button> \
+                    <h4>Warning!</h4> \
+                    Best check yo self, 5 songs at at time. \
+                    </div>';
     currentField ++;
     if (currentField < maxFields) {
         $(this).before(inputField);
@@ -56,7 +56,7 @@ $("#add").unbind('click').click(function(event) {
     function extractLast ( term ) {
         return split( term).pop();
     }
-$("#song").attr('disabled', true);
+$('[class^="song"]').attr('disabled', true);
 
 //function looks up input and returns suggested artist. Upon completion builds array of songs by the artist.
 $("#artist").autocomplete({
@@ -91,9 +91,9 @@ $("#artist").autocomplete({
             //remove the current input
             artist.pop();
             //add the selected value
-            artist.push( ui.item.value)
-            this.value = artist
-            //add placeholder to get the comma-and-space at the end
+            artist.push(ui.item.value);
+            this.value = artist;
+
 
             //Gets total # of songs first, then uses search api to return songs in order of hottness.
             var getSongs = $.ajax({
@@ -143,7 +143,7 @@ $("#artist").autocomplete({
                 }
         });
             return false;
-            //$("#song").autocomplete("option", "source");
+
         },
         change: function (event, ui) {
             if (!ui.item) {
@@ -152,9 +152,13 @@ $("#artist").autocomplete({
              }
         }
 });
-$('[class^="song"]').on("click", songComplete);
-    function songComplete() {
-        $(this).autocomplete({
+$('[class^="song"]').live("keydown.autocomplete", function() {
+    $(this).autocomplete(songComplete);
+    });
+
+
+        //class for song autocomplete
+        var songComplete = {
             source: function (request, response) {
                     response($.ui.autocomplete.filter(
                         songsList, extractLast(request.term)
@@ -162,19 +166,16 @@ $('[class^="song"]').on("click", songComplete);
             },
             minLength: 0,
             select: function (event, ui) {
-                //var terms = split(this.value);
+                var terms = split(this.value);
                 //remove the current input
                 terms.pop();
                 //add the selected value
-                terms.push(ui.item.value)
+                terms.push(ui.item.value);
                 //add placeholder to get the comma-and-space at the end
-                terms.push("");
-                this.value = terms.join(", ")
+                //terms.push("");
+                this.value = terms;
                 //enable add button*/
                 $("#add").attr('disabled', false);
-                return false;
-                //$("#log").empty();
-                //$("#log").append(ui.item ? ui.item.id + ' ' + ui.item.label : '(nothing)');
             },
             change: function (event, ui) {
                 if (!ui.item) {
@@ -183,7 +184,7 @@ $('[class^="song"]').on("click", songComplete);
                     $("#add").attr('disabled', true);
                 }
             }
-        });
+        };
         }
 
-});
+);
