@@ -11,13 +11,13 @@ $(function () {
     //
     /**
      * This is some very ugly javascript, serves me right for trying to learn on the fly.
-     * Bunch of global variables here, and "utility functions.
+     * Bunch of global variables here, and "utility functions."
      */
     //setter for current number of song inputs
     var currentField = 1;
     //disable add button.
     $("#add").attr('disabled',true);
-    //Song total Initialization
+    //Song total set
     var songTotal;
     //List of Songs By Artist ordered by "hottttnesss" if over 1000 songs by artist songs of hotness < 1000 wont' be available.
     var songsList = [];
@@ -43,20 +43,23 @@ $(function () {
         return val.split(/,\s*/);
     }
      /**
-     * Event Handlers
+     * Event handlers
      */
 
+     //event for page load
 $('[class^="song"]').attr('disabled', true);
 
-
+    //event for "artist"
 $("#artist").on("keydown.autocomplete", function(){
     $(this).autocomplete(artistComplete);
     });
 
+    //event for "song"
 $('[class^="song"]').live("keydown.autocomplete", function() {
     $(this).autocomplete(songComplete);
     });
-    //handler for add button
+
+    //event for add button
 $("#add").unbind('click').click(function(event) {
     event.stopPropagation();
     //Bunch of crappy HTML variables.
@@ -64,7 +67,7 @@ $("#add").unbind('click').click(function(event) {
     var songSet = 'song_set-' + currentField + '-song';
     var autoFill = 'autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"> ';
     var inputField = '<input id="' + songSet + '" type="text" class="song ui-autocomplete-input input-large" name="' + songSet + '"' + autoFill;
-    var hiddenField = '<input type=\"hidden\" name=\"' + songSet + '_id\" id=\"'+ songSet + '_id">';
+    //var hiddenField = '<input type=\"hidden\" name=\"' + songSet + '_id\" id=\"'+ songSet + '_id">';
     var overLoad = '<div class="alert alert-block"> \
                     <button type="button" class="close" data-dismiss="alert">&times;</button> \
                     <h4>Warning!</h4> \
@@ -74,7 +77,7 @@ $("#add").unbind('click').click(function(event) {
     currentField ++;
     if (currentField < maxFields) {
         $(this).before(inputField);
-        $(this).after(hiddenField);
+        //$(this).after(hiddenField);
         $('[class^="song"]:last').focus();
         $("#artist").attr('disabled', true);
     }
@@ -127,6 +130,9 @@ $("#add").unbind('click').click(function(event) {
             //add the selected value
             artist.push(ui.item.value);
             this.value = artist;
+            $('#id_artist_id').val(ui.item.id);
+            console.log(ui.item.id);
+
 
 
             //Gets total # of songs first, then uses search api to return songs in order of hottness.
@@ -218,8 +224,9 @@ $("#add").unbind('click').click(function(event) {
                     terms.push(ui.item.value);
                     selectedSongs.push(ui.item.value);
                     this.value = terms;
-                    //enable add button*/
+                    //enable add button
                     $("#add").attr('disabled', false);
+
                 }
             },
             change: function (event, ui) {
@@ -227,6 +234,8 @@ $("#add").unbind('click').click(function(event) {
                     $(this).val('');
                     //disable add button
                     $("#add").attr('disabled', true);
+                    //remove item from selected array
+                    selectedSongs.splice(($.inArray(ui.item ,selectedSongs)),1);
                 }
             }
         };
