@@ -30,7 +30,7 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
     {% endwith %}
     <div class="row-fluid">
         <div class="span10 pull-right">
-            <form method="post">
+            <form id="target" method="post" action=""> {% csrf_token %}
                 <fieldset>
                 <div class="row-fluid">
                     <div class="span6">
@@ -38,19 +38,19 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
                             <div class="form-inline">
                             {{ submitter.id }}
                                 <p>
-                               <input class="input-large" placeholder="First Name" type="text" id="{{ submitter.first_name.html_name }}">
-                               <input class="input-large" placeholder="Last Name" type="text" id="{{ submitter.last_name.html_name }}">
+                               <input class="input-large" placeholder="First Name" type="text" name="{{ submitter.first_name.html_name }}" id="{{ submitter.first_name.html_name }}">
+                               <input class="input-large" placeholder="Last Name" type="text" name="{{ submitter.last_name.html_name }}" id="{{ submitter.last_name.html_name }}">
                                 </p>
                             </div>
                             <div class="controls">
-                                <p><input class="input-xlarge" type="text" type="email" id="inputEmail {{ submitter.email.html_name }}" placeholder="Email"></p>
+                                <p><input class="input-xlarge" type="text" type="email" name="{{ submitter.email.html_name }}" id="inputEmail {{ submitter.email.html_name }}" placeholder="Email"></p>
                             </div>
                     </div>
                     <div class="span4">
                         <legend>Select an Artist</legend>
                             {{ artist.id  }}
                             <div class="controls">
-                                <input class="ui-autocomplete-input input-large" autocomplete="off" type="text" role="textbox" aria-autocomplete="list" aria-haspopup="true" id="{{ artist.artist.html_name }}" >
+                                <input class="ui-autocomplete-input input-large" autocomplete="off" type="text" role="textbox" aria-autocomplete="list" aria-haspopup="true" id="{{ artist.artist.html_name }}" name="{{ artist.artist.html_name }}">
                             </div>
                             {{ artist.artist_id }}
                     </div>
