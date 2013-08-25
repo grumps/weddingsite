@@ -59,6 +59,7 @@ $('[class^="song"]').live("keydown.autocomplete", function() {
     $(this).autocomplete(songComplete);
     });
 
+
     //event for add button
 $("#add").unbind('click').click(function(event) {
     event.stopPropagation();
@@ -94,8 +95,12 @@ $("#add").unbind('click').click(function(event) {
     $("#add").attr('disabled', true);
 });
 
-    // class for handling Artist autocomplete.
-    //class looks up input and returns suggested artist. Upon completion builds array of songs by the artist.
+    /**
+     *
+     * Class for handling Artist autocomplete.
+     * class looks up input and returns suggested artist. Upon completion builds array of songs by the artist.
+     *
+     */
     var artistComplete = {
         source: function (request, response) {
             $.ajax({
@@ -191,8 +196,6 @@ $("#add").unbind('click').click(function(event) {
              }
         }
     };
-    //class for cleaning song list
-
     //class for song autocomplete
     var songComplete = {
             source: function (request, response) {
@@ -239,4 +242,10 @@ $("#add").unbind('click').click(function(event) {
                 }
             }
         };
+});
+$(document).ready(function(){
+        //event for submit action
+    $('#target').submit(function(){
+        $('#artist').removeAttr('disabled');
+    });
 });
