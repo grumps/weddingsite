@@ -81,6 +81,7 @@ $("#add").unbind('click').click(function(event) {
         //$(this).after(hiddenField);
         $('[class^="song"]:last').focus();
         $("#artist").attr('disabled', true);
+        $('#id_song_set-TOTAL_FORMS').val(currentField);
     }
     else if (currentField == maxFields) {
         $(this).before(inputField).focus();
@@ -248,4 +249,5 @@ $(document).ready(function(){
     $('#target').submit(function(){
         $('#artist').removeAttr('disabled');
     });
+
 });
