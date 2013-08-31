@@ -46,16 +46,21 @@ $(function () {
      * Event handlers
      */
 
-     //event for page load
+     //event handler for page load
 $('[class^="song"]').attr('disabled', true);
 
     //event for "artist"
 $("#artist").on("keydown.autocomplete", function(){
+    //events clean song in case user changes artist
+    $('[class^="song"]').val('');
+    $('[class^="song"]').attr('disabled', true);
+
     $(this).autocomplete(artistComplete);
     });
 
     //event for "song"
-$('[class^="song"]').live("keydown.autocomplete", function() {
+$(document).on("keydown.autocomplete",'[class^="song"]', function() {
+    $("#artist").attr('disabled', true);
     $(this).autocomplete(songComplete);
     });
 
@@ -138,9 +143,6 @@ $("#add").unbind('click').click(function(event) {
             this.value = artist;
             $('#id_artist_id').val(ui.item.id);
             console.log(ui.item.id);
-
-
-
             //Gets total # of songs first, then uses search api to return songs in order of hottness.
             var getSongs = $.ajax({
                     url: "http://developer.echonest.com/api/v4/artist/songs",
@@ -153,7 +155,6 @@ $("#add").unbind('click').click(function(event) {
                     },
                     success: function (data) {
                         songTotal = data.response.total;
-                        console.log('hello  ' + songTotal);
                     }
             //Key to sequencing is actually calling 'done' since ajax is a promise.
             }).done(function() {
@@ -166,15 +167,14 @@ $("#add").unbind('click').click(function(event) {
                     console.log('numsongs  ' + songTotal);
                     (function(_startindex){
                         $.ajax({
-                            url: "http://developer.echonest.com/api/v4/song/search",
+                            url: "http://developer.echonest.com/api/v4/artist/songs",
                                 dataType: "jsonp",
                             data: {
                                     results: 100,
                                     api_key: "KTPZMU3CDARU82WJO",
                                     format: "jsonp",
-                            artist: ui.item.value,
+                            name: ui.item.value,
                             start: _startindex,
-                            sort: 'song_hotttnesss-desc'
                             },
 
                         success: function (data) {
@@ -194,6 +194,11 @@ $("#add").unbind('click').click(function(event) {
         change: function (event, ui) {
             if (!ui.item) {
                  $(this).val('');
+                $('[class^="song"]').val('');
+                $('[class^="song"]').attr('disabled', true);
+                songsListClean = [];
+                songsList = [];
+
              }
         }
     };
@@ -212,7 +217,7 @@ $("#add").unbind('click').click(function(event) {
                 response(a);
 
             },
-            minLength: 3,
+            minLength: 2,
             select: function (event, ui) {
                 var terms = split(this.value);
                 //Check to make sure it's not a duplicate
