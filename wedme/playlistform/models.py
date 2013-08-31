@@ -2,23 +2,11 @@ from django.db import models
 from django.forms import ModelForm, HiddenInput
 
 
-class Submitter(models.Model):
-    """
-    Record of who submitted a song.
-    First & Last Name.
-    Email
-    """
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=200)
-    email = models.EmailField()
-
-
 class Artist(models.Model):
     """
     Artist Model that specifically handles the Artist submissions
     Artist and Echonest ID
     """
-
     artist = models.CharField(max_length=100)
     artist_id = models.CharField(max_length=50)
 
@@ -32,10 +20,25 @@ class Song(models.Model):
     Song title
     Song's Echonest ID
     """
-
     song = models.CharField(max_length=200)
-    song_id = models.CharField(max_length=50)
     artist = models.ForeignKey(Artist)
+    #TODO add request count.
+
+class Submitter(models.Model):
+    """
+    Record of who submitted a song.
+    First & Last Name.
+    Email
+    Songs_added
+    Created date
+    Modified date
+    """
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    songs_added = models.ManyToManyField(Song)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
 
 class SubmitterForm(ModelForm):
@@ -44,6 +47,7 @@ class SubmitterForm(ModelForm):
     """
     class Meta:
         model = Submitter
+        exclude = ('created', 'modified', 'songs_added',)
 
 
 class ArtistForm(ModelForm):
