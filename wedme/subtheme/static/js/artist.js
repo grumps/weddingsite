@@ -3,15 +3,17 @@
  * User: grumps
  * Date: 6/16/13
  * Time: 11:03 AM
- * To change this template use File | Settings | File Templates.
+ * Readme:
+ * Original Code for artistComplete was found on the Echonest Blog.
+ * This my first work with JavaScript and JQuery.  It's ugly. I'd like to re-do it but there's no time.
  */
-/** Baseline code from EchoNest Blog */
+
+
 
 $(function () {
-    //
+
     /**
-     * This is some very ugly javascript, serves me right for trying to learn on the fly.
-     * Bunch of global variables here, and "utility functions."
+     *Bunch of global variables here, and "utility functions."
      */
     //setter for current number of song inputs
     var currentField = 1;
@@ -42,9 +44,13 @@ $(function () {
     function split ( val ) {
         return val.split(/,\s*/);
     }
-     /**
-     * Event handlers
-     */
+
+
+ /**
+  *
+  * Event handlers
+  *
+ */
 
      //event handler for page load
 $('[class^="song"]').attr('disabled', true);
@@ -73,7 +79,6 @@ $("#add").unbind('click').click(function(event) {
     var songSet = 'song_set-' + currentField + '-song';
     var autoFill = 'autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"> ';
     var inputField = '<input id="' + songSet + '" type="text" class="song ui-autocomplete-input input-large" name="' + songSet + '"' + autoFill;
-    //var hiddenField = '<input type=\"hidden\" name=\"' + songSet + '_id\" id=\"'+ songSet + '_id">';
     var overLoad = '<div class="alert alert-block"> \
                     <button type="button" class="close" data-dismiss="alert">&times;</button> \
                     <h4>Warning!</h4> \
@@ -254,5 +259,4 @@ $(document).ready(function(){
     $('#target').submit(function(){
         $('#artist').removeAttr('disabled');
     });
-
 });
