@@ -17,14 +17,19 @@ def playListAdd(request):
             #get cleaned data & cast as string.
             cleaned_artist = str((artist.cleaned_data['artist_id']))
             artist_exists = Artist.objects.filter(artist_id=cleaned_artist).exists()
+            #add artist to db if artist isn't present.
             if not artist_exists:
                 artist.save()
             artist_instance = Artist.objects.get(artist_id=cleaned_artist).pk
+            submitter.save()
             for form in formset:
                 song_title = str((form.cleaned_data['song']))
-                Song.objects.get_or_create(song=song_title, artist_id=artist_instance)
-            submitter.save()
+                song = Song.objects.get_or_create(song=song_title, artist_id=artist_instance)
+                submitter.songs_added.add(song)
 
+
+
+        #invalid page
         else:
             return render(request, '/the-wedding-party')
         return render(request, 'index.html')
