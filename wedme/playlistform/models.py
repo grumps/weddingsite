@@ -47,12 +47,16 @@ class SubmitterForm(ModelForm):
     """
     class Meta:
         model = Submitter
-        exclude = ('created', 'modified', 'songs_added',)
+        fields = {
+            'first_name',
+            'last_name',
+            'email',
+        }
 
 
 class ArtistForm(ModelForm):
     """
-    Form Class Automatically handled by Django.
+    Form class automatically handled by Django.
     """
 
     class Meta:

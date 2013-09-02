@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.forms.models import inlineformset_factory
-from wedme.playlistform.models import SubmitterForm, ArtistForm, Artist, Song
+from wedme.playlistform.models import SubmitterForm, ArtistForm, Artist, Song, Submitter as submitter_model
 
 
 def playListAdd(request):
@@ -21,17 +21,18 @@ def playListAdd(request):
             if not artist_exists:
                 artist.save()
             artist_instance = Artist.objects.get(artist_id=cleaned_artist).pk
-            submitter.save()
+
+            submitter_object = submitter.save()
             for form in formset:
                 song_title = str((form.cleaned_data['song']))
-                song = Song.objects.get_or_create(song=song_title, artist_id=artist_instance)
-                submitter.songs_added.add(song)
-
+                #get_or_create returns tuple of 'obj, [True if created]'
+                song_object, song_exists = Song.objects.get_or_create(song=song_title, artist_id=artist_instance)
+                submitter_object.songs_added.add(song_object)
 
 
         #invalid page
         else:
-            return render(request, '/the-wedding-party')
+            return render(request, '/the-wedding-party/')
         return render(request, 'index.html')
     else:
         formset = SongFormInlineSet()
