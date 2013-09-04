@@ -2,7 +2,19 @@ from django.db import models
 from django.forms import ModelForm, HiddenInput
 
 
-class Artist(models.Model):
+class TimeStampedModel(models.Model):
+    """
+    Class for managing timestamps and update stamps.
+    Thanks to 2 Scoops of Django for this.
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Artist(TimeStampedModel):
     """
     Artist Model that specifically handles the Artist submissions
     Artist and Echonest ID
@@ -14,7 +26,7 @@ class Artist(models.Model):
         return self.name
 
 
-class Song(models.Model):
+class Song(TimeStampedModel):
     """
     Song Model that has a relationship with Artist.
     Song title
@@ -24,7 +36,8 @@ class Song(models.Model):
     artist = models.ForeignKey(Artist)
     #TODO add request count.
 
-class Submitter(models.Model):
+
+class Submitter(TimeStampedModel):
     """
     Record of who submitted a song.
     First & Last Name.
@@ -37,8 +50,6 @@ class Submitter(models.Model):
     last_name = models.CharField(max_length=200)
     email = models.EmailField()
     songs_added = models.ManyToManyField(Song)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
 
 
 class SubmitterForm(ModelForm):
