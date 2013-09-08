@@ -27,7 +27,7 @@ def playListAdd(request):
                 artist.save()
             artist_instance = Artist.objects.get(artist_id=cleaned_artist).pk
 
-            #TODO handle duplicate submitter
+
             #use email for primary look up - for lack of better key. names can alter.
             submitted_email = str(submitter.cleaned_data['email'])
             submitted_exists = Submitter_model.objects.filter(email=submitted_email).exists()
@@ -35,6 +35,7 @@ def playListAdd(request):
                 submitter_object = submitter.save()
             else:
                 submitter_object = Submitter_model.objects.get(email=submitted_email)
+                submitter_object.save()
 
             for form in formset:
                 #TODO add request count
