@@ -119,7 +119,11 @@ img {
     border-bottom: 2px solid #f39c12;
     margin: 21px 0 31.5px;
 }
-.navbar .brand {height: 2px;}
+.navbar .brand {
+    height: 2px;
+    margin-left: 0px;
+
+}
 
 .map {
     min-height: 500px;
@@ -132,6 +136,7 @@ img {
 
 .well-groomsmen {
   min-height: 20px;
+  margin-right: 13px;
   padding: 19px;
   margin-bottom: 20px;
   background-color: #3498db;
@@ -147,6 +152,7 @@ img {
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
+  margin-left: 0px;
   background-color: #8e44ad;
   border: 1px solid #d7e0e2;
   -webkit-border-radius: 6px;
