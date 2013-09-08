@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load mezzanine_tags keyword_tags %}
+{% load debug_tags %}
+{% block meta_title %}{{ page.meta_title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+{% variables %}:
+{% block title %}
+
+{% editable page.title %}
+    <div class="hero-unit">
+    <h1>{{ page.title }}</h1>
+    <p>We think it's awesome that these guys would actually put up with us...</p>
+    <p>
+    <a class="btn btn-primary btn-large">
+    Learn more
+    </a>
+    </p>
+    </div>
+{% endeditable %}
+{% endblock %}
+
+{% block main %}
+    {% editable page.richtextpage.content %}
+    {{ page.richtextpage.content|richtext_filters|safe }}
+    {% endeditable %}
+{% endblock %}
