@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load mezzanine_tags keyword_tags %}
 {% load debug_tags %}
 {% block meta_title %}{{ page.meta_title }}{% endblock %}
@@ -18,15 +19,19 @@
 {% block title %}
 
 {% editable page.title %}
-    <div class="hero-unit">
-    <h1>{{ page.title }}</h1>
-    <p>We think it's awesome that these guys would actually put up with us...</p>
-    <p>
-    <a class="btn btn-primary btn-large">
-    Learn more
-    </a>
-    </p>
-    </div>
+    <div class="hero-unit text-center">
+        <h1>{{ page.title }}</h1>
+                <h2>We think it's awesome that these people would actually put up with us...</h2>
+
+                <p>
+                    <a href="#audra">
+                        <button class="btn btn-large btn-primary" type="button">
+                            Meet Them <br>
+                           <i class="icon-chevron-down icon-white"></i>
+                        </button>
+                    </a>
+                </p>
+        </div>
 {% endeditable %}
 {% endblock %}
 
@@ -34,4 +39,9 @@
     {% editable page.richtextpage.content %}
     {{ page.richtextpage.content|richtext_filters|safe }}
     {% endeditable %}
+
+{% endblock %}
+
+{% block footer_extra %}
+
 {% endblock %}
