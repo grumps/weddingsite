@@ -134,6 +134,17 @@ img {
     position:relative;
 }
 
+.hero-unit {
+    background-color: #ffffff;
+    border-radius: 6px 6px 6px 6px;
+    color: inherit;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 31.5px;
+    margin-bottom: 30px;
+    padding: 60px;
+}
+
 .well-groomsmen {
   min-height: 20px;
   margin-right: 13px;
