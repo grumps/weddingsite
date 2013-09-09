@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load mezzanine_tags keyword_tags %}
+{% load debug_tags %}
+{% block meta_title %}{{ page.meta_title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+{% variables %}:
+{% block title %}
+
+{% editable page.title %}
+    <div class="hero-unit text-center">
+        <h1>{{ page.title }}</h1>
+
+
+                <p>
+
+                </p>
+        </div>
+{% endeditable %}
+{% endblock %}
+
+{% block main %}
+    {% editable page.richtextpage.content %}
+    {{ page.richtextpage.content|richtext_filters|safe }}
+    {% endeditable %}
+
+{% endblock %}
+
+{% block footer_extra %}
+
+{% endblock %}
