@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load mezzanine_tags keyword_tags %}
-{% load debug_tags %}
 {% block meta_title %}{{ page.meta_title }}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
@@ -15,7 +14,7 @@
 {% block meta_description %}{% metablock %}
 {{ page.description }}
 {% endmetablock %}{% endblock %}
-{% variables %}:
+
 {% block title %}
 
 {% editable page.title %}
