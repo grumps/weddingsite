@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load mezzanine_tags keyword_tags %}
-{% load debug_tags %}
 {% block meta_title %}{{ page.meta_title }}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
@@ -15,19 +14,18 @@
 {% block meta_description %}{% metablock %}
 {{ page.description }}
 {% endmetablock %}{% endblock %}
-{% variables %}:
+
+{% block coverphoto %}
+    <div class="cover-photo">
+        <figure class="fixedratio visible-desktop"></figure>
+        <div class="hero-unit text-center">
+            <h1>About {{ page.title }}</h1>
+        </div>
+    </div>
+{% endblock %}
+{% block body_id %}about-us{% endblock %}
 {% block title %}
 
-{% editable page.title %}
-    <div class="hero-unit text-center">
-        <h1>{{ page.title }}</h1>
-
-
-                <p>
-
-                </p>
-        </div>
-{% endeditable %}
 {% endblock %}
 
 {% block main %}
