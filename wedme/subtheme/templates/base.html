@@ -46,30 +46,31 @@ $(function() {
 {% block extra_head %}{% endblock %}
 </head>
 
-<body id="{% block body_id %}body {% endblock %}">
+<body id="{% block body_id %}body{% endblock %}">
 {% if on_home %}
 <div class="homepage">
 </div>
 {% endif %}	
 <div class="container-fluid">
-<div class="navbar navbar-fixed-top">
-	
-<div class="navbar-inner"> 
-<div class="container">
-    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-    </a>
-	{% if settings.SITE_TITLE %}<div class="brand span12"><div class="brandimg"><a href="/"><img class="brandimg" src="{{ STATIC_URL }}media/uploads/i/mo.png"></a></div></div>{% endif %}
-    {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
-    <div class="nav-collapse">
-	    {% page_menu "pages/menus/dropdown.html" %}
-	</div>
-</div>
-</div>
-</div>
-</div>
+    <div class="navbar navbar-fixed-top">
+	    <div class="navbar-inner">
+            <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                       <span class="icon-bar"></span>
+                       <span class="icon-bar"></span>
+                       <span class="icon-bar"></span>
+                    </a>
+                    {% if settings.SITE_TITLE %}<div class="brand span12"><div class="brandimg"><a href="/"><img class="brandimg" src="{{ STATIC_URL }}media/uploads/i/mo.png"></a></div></div>{% endif %}
+                    {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+                    <div class="nav-collapse">
+                        {% page_menu "pages/menus/dropdown.html" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% block coverphoto %}{% endblock %}
+
 <div class="container">
 {% nevercache %}
 {% for message in messages %}
