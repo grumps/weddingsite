@@ -8,8 +8,30 @@
  * Designed and built to overide Mezzanine and Bootsrap CSS @max_resnick
  */
 
-@media (max-width: 480px) {
-    .hp-bttm {
 
+@media (max-width: 979px) {
+    .navbar-fixed-top {
+    margin-bottom: 0;
+    }
+    #about-us {
+        padding-top: 0;
+    }
+    .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
     }
 }
+
+@media (max-width: 480px) {
+    .navbar-fixed-top {
+    margin-bottom: 0;
+    }
+    #about-us {
+        padding-top: 0;
+    }
+    .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+    }
+}
+
