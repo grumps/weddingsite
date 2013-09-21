@@ -124,7 +124,9 @@ img {
     margin-left: 0px;
 
 }
-
+.nav {
+    left: 40px;
+}
 .map {
     min-height: 500px;
 
