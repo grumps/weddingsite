@@ -15,16 +15,13 @@
 {{ page.description }}
 {% endmetablock %}{% endblock %}
 
-{% block coverphoto %}
-    <div class="cover-photo ">
-        <figure class="fixedratio hidden-phone"></figure>
-        <div class="hero-unit text-center">
-            <h1>About {{ page.title }}</h1>
-        </div>
-    </div>
-{% endblock %}
-{% block body_id %}about-us{% endblock %}
 {% block title %}
+
+{% editable page.title %}
+ <div class="hero-unit text-center">
+        <h1>{{ page.title }}</h1>
+ </div>
+{% endeditable %}
 
 {% endblock %}
 
