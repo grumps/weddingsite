@@ -9,7 +9,7 @@ def playListAdd(request):
     """
 
     SongFormInlineSet = inlineformset_factory(Artist, Song, can_delete=False,
-                                              extra=1, max_num=5, exclude=('artist_id',))
+                                              extra=1, max_num=5, exclude=('artist_id', 'request_count'))
     SubmitterFormSet = SubmitterForm
     ArtistFormSet = ArtistForm
 
@@ -27,7 +27,6 @@ def playListAdd(request):
                 artist.save()
             artist_instance = Artist.objects.get(artist_id=cleaned_artist).pk
 
-
             #use email for primary look up - for lack of better key. names can alter.
             submitted_email = str(submitter.cleaned_data['email'])
             submitted_exists = Submitter_model.objects.filter(email=submitted_email).exists()
@@ -43,12 +42,18 @@ def playListAdd(request):
                 #get_or_create returns tuple of 'obj, [True if created]'
                 song_object, song_exists = Song.objects.get_or_create(song=song_title, artist_id=artist_instance)
                 submitter_object.songs_added.add(song_object)
+                if not (song_exists or Submitter_model.objects.filter(songs_added=song_object.pk).exists()):
+                    song_object.request_count += 1
+                    song_object.save()
 
-        #invalid page
+        #redirect back to form.
         else:
-            return render(request, '/the-wedding-party/')
-
-        #form processing complete
+            return render(request, 'add-a-jam.html', {
+                          "formset": formset,
+                          "artist": artist,
+                          "submitter": submitter,
+                          })
+            #form processing complete
         return render(request, 'index.html')
     else:
         formset = SongFormInlineSet()
@@ -56,7 +61,7 @@ def playListAdd(request):
         submitter = SubmitterFormSet()
 
     return render(request, 'add-a-jam.html', {
-        "formset": formset,
-        "artist": artist,
-        "submitter": submitter,
-    })
+                 "formset": formset,
+                 "artist": artist,
+                 "submitter": submitter,
+                  })
