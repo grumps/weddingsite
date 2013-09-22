@@ -35,22 +35,43 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
                 <div class="row-fluid">
                     <div class="span6">
                         <legend>Your Info</legend>
+                        {% if submitter.errors %}
+                        <div class="span10">
+                          <div class="alert alert-error">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong>Missing your info</strong> Please enter your name and email, I'm not going to do anything evil with it.
+                          </div>
+                        </div>
+                        {% endif %}
                             <div class="form-inline">
                             {{ submitter.id }}
+                            {% if submitter.errors %}<div class="control-group error span4">{% endif %}
                                 <p>
-                               <input class="input-large" placeholder="First Name" type="text" name="{{ submitter.first_name.html_name }}" id="{{ submitter.first_name.html_name }}">
-                               <input class="input-large" placeholder="Last Name" type="text" name="{{ submitter.last_name.html_name }}" id="{{ submitter.last_name.html_name }}">
+                                <input class="input-large" placeholder="First Name" type="text" name="{{ submitter.first_name.html_name }}" id="{{ submitter.first_name.html_name }}">
+                                    {% if submitter.errors %}<span class="help-inline">{{ submitter.errors.last_name.0 }}</span>{% endif %}
+                                <input class="input-large" placeholder="Last Name" type="text" name="{{ submitter.last_name.html_name }}" id="{{ submitter.last_name.html_name }}">
+                                    {% if submitter.errors %}<span class="help-inline">{{ submitter.errors.last_name.0 }}</span>{% endif %}
                                 </p>
-                            </div>
-                            <div class="controls">
-                                <p><input class="input-xlarge" type="text" type="email" name="{{ submitter.email.html_name }}" id="inputEmail {{ submitter.email.html_name }}" placeholder="Email"></p>
-                            </div>
+                                <p>
+                                <input class="input-xlarge" type="text" type="email" name="{{ submitter.email.html_name }}" id="inputEmail {{ submitter.email.html_name }}" placeholder="Email">
+                                    {% if submitter.errors %}<span class="help-inline">{{ submitter.errors.email.0 }}</span>{% endif %}
+                                </p>
+                            {% if submitter.errors %}</div>{% endif %}
+                       </div>
                     </div>
                     <div class="span4">
-                        <legend>Select an Artist</legend>
+                         <legend>Select an Artist</legend>
+                         {% if artist.errors %}
+                         <div class="span12">
+                              <div class="alert alert-error">
+                                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                  <strong>An error occurred!</strong> Something went wrong with the Artist you added. Try and use Chrome and Firefox.
+                              </div>
+                          </div>
+                          {% endif %}
                             {{ artist.id  }}
                             <div class="controls">
-                                <input class="ui-autocomplete-input input-large" autocomplete="off" type="text" role="textbox" aria-autocomplete="list" aria-haspopup="true" id="{{ artist.artist.html_name }}" name="{{ artist.artist.html_name }}">
+                                <input class="ui-autocomplete-input input-large" placeholder="The Beatles"autocomplete="off" type="text" role="textbox" aria-autocomplete="list" aria-haspopup="true" id="{{ artist.artist.html_name }}" name="{{ artist.artist.html_name }}">
                             </div>
                             {{ artist.artist_id }}
                     </div>
@@ -67,11 +88,14 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
                                 <input id="{{ form.song_id.html_name }}" type="hidden" name="{{ form.song_id.html_name }}">
                             </div>
                         {% endfor %}
-                     <div class="row-fluid">
-                        <div clas="span3 pull-right">
-
+                        {% if formset.errors %}
+                        <div class="span10">
+                          <div class="alert alert-error">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong>An error occurred!</strong> One or more of the songs you added couldn't be processed. Try and use Chrome and Firefox.
+                          </div>
                         </div>
-                     </div>
+                        {% endif %}
                 </div>
                 <div class="row-fluid">
                    <div class="form-actions span10">
@@ -79,7 +103,6 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
                     <a class="btn btn-primary btn-large btn-inverse" href="/add-a-jam/">Reload</a>
                    </div>
                 </div>
-
                 </fieldset>
             </form>
         </div>
