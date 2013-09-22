@@ -33,8 +33,9 @@ class Song(TimeStampedModel):
     Song's Echonest ID
     """
     song = models.CharField(max_length=200)
+    request_count = models.IntegerField()
     artist = models.ForeignKey(Artist)
-    #TODO add request count.
+    request_count = models.IntegerField(default=1)
 
 
 class Submitter(TimeStampedModel):
