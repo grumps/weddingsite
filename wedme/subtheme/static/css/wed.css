@@ -257,3 +257,6 @@ figure.fixedratio {
   outline: 0;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff18bc9c', endColorstr='#ff15a589', GradientType=0);
 }
+.thumbnail .caption {
+    color: #ffffff;
+}
