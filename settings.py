@@ -304,10 +304,7 @@ DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 ###################
 # DEPLOY SETTINGS #
 ###################
-ALLOWED_HOSTS = [
-    'wedme', # Allow domain and subdomains
-    'come.sayidowith.us',
-]
+
 # These settings are used by the default fabfile.py provided.
 # Check fabfile.py for defaults.
 
