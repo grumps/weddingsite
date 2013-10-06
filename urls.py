@@ -63,7 +63,7 @@ urlpatterns = patterns("",
                        ("^", include("mezzanine_events.urls")),
 
                        #Playlist app
-                       (r"^add-a-jam/", include("playlistform.urls")),
+                       (r"^add-a-jam", include("playlistform.urls")),
                        # If you'd like more granular control over the patterns in
                        # ``mezzanine.urls``, go right ahead and take the parts you want
                        # from it, and use them directly below instead of using
