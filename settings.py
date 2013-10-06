@@ -87,10 +87,9 @@ USE_SOUTH = True
 # In the format (('Full Name', 'email@example.com'),
 #                ('Full Name', 'anotheremail@example.com'))
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Max Resnick', 'max.resnick@gmail.com'),
 )
 MANAGERS = ADMINS
-
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -167,7 +166,6 @@ DATABASES = {
     }
 }
 
-TEMPLATE_DEBUG = True
 
 #########
 # PATHS #
@@ -214,6 +212,7 @@ ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 
+ALLOWED_HOSTS = ['*']
 
 ################
 # APPLICATIONS #
