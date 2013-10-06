@@ -4,14 +4,14 @@
 {% load event %}
 {% load extra %}
 {% countdown as days %}
-{% block extra_js %}
+{% block extra_head %}
   <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.js'></script>
   <script type='text/javascript'>
 var map = L.mapbox.map('map', '{{ page.event.mapbox_id }}');
 L.control.scale().addTo(map);
 </script>
 {% endblock %}
-{% block extra_css %}
+{% block extra_head %}
   <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.css' rel='stylesheet' />
   <!--[if lte IE 8]>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.ie.css' rel='stylesheet' >
