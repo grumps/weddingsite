@@ -5,8 +5,9 @@ from functools import wraps
 from getpass import getpass, getuser
 from glob import glob
 from contextlib import contextmanager
+from posixpath import join
 
-from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide, task
+from fabric.api import get, env, cd, prefix, put, sudo as _sudo, run as _run, hide, task
 from fabric.contrib.files import exists, upload_template
 from fabric.colors import yellow, green, blue, red
 
@@ -16,10 +17,11 @@ from fabric.colors import yellow, green, blue, red
 ################
 
 conf = {}
-if sys.argv[0].split(os.sep)[-1] == "fab":
+if sys.argv[0].split(os.sep)[-1] in ("fab",             # POSIX
+                                     "fab-script.py"):  # Windows
     # Ensure we import settings from the current dir
     try:
-        conf = __import__("settings", globals(), locals(), [], 0).FABRIC
+        conf = __import__("settings", globals(), locals(), [], 0).FABRIC_STAGE
         try:
             conf["HOSTS"][0]
         except (KeyError, ValueError):
@@ -36,6 +38,7 @@ env.key_filename = conf.get("SSH_KEY_PATH", None)
 env.hosts = conf.get("HOSTS", [])
 
 env.proj_name = conf.get("PROJECT_NAME", os.getcwd().split(os.sep)[-1])
+env.proj_db = conf.get("PROJECT_DB", os.getcwd().split(os.sep)[-1])
 env.venv_home = conf.get("VIRTUALENV_HOME", "/home/%s" % env.user)
 env.venv_path = "%s/%s" % (env.venv_home, env.proj_name)
 env.proj_dirname = "project"
@@ -48,6 +51,9 @@ env.git = env.repo_url.startswith("git") or env.repo_url.endswith(".git")
 env.reqs_path = conf.get("REQUIREMENTS_PATH", None)
 env.gunicorn_port = conf.get("GUNICORN_PORT", 8000)
 env.locale = conf.get("LOCALE", "en_US.UTF-8")
+
+env.secret_key = conf.get("SECRET_KEY", "")
+env.nevercache_key = conf.get("NEVERCACHE_KEY", "")
 
 
 ##################
@@ -116,7 +122,7 @@ def update_changed_requirements():
     Checks for changes in the requirements file across an update,
     and gets new requirements if changes have occurred.
     """
-    reqs_path = os.path.join(env.proj_path, env.reqs_path)
+    reqs_path = join(env.proj_path, env.reqs_path)
     get_reqs = lambda: run("cat %s" % reqs_path, show=False)
     old_reqs = get_reqs() if env.reqs_path else ""
     yield
@@ -203,6 +209,9 @@ def upload_template_and_reload(name):
     """
     template = get_templates()[name]
     local_path = template["local_path"]
+    if not os.path.exists(local_path):
+        project_root = os.path.dirname(os.path.abspath(__file__))
+        local_path = os.path.join(project_root, local_path)
     remote_path = template["remote_path"]
     reload_command = template.get("reload_command")
     owner = template.get("owner")
@@ -280,7 +289,7 @@ def backup(filename):
     """
     Backs up the database.
     """
-    return postgres("pg_dump -Fc %s > %s" % (env.proj_name, filename))
+    return postgres("pg_dump -Fc %s > %s" % (env.proj_db, filename))
 
 
 @task
@@ -288,7 +297,7 @@ def restore(filename):
     """
     Restores the database.
     """
-    return postgres("pg_restore -c -d %s %s" % (env.proj_name, filename))
+    return postgres("pg_restore -c -d %s %s" % (env.proj_db, filename))
 
 
 @task
@@ -310,7 +319,7 @@ def static():
     Returns the live STATIC_ROOT directory.
     """
     return python("from django.conf import settings;"
-                  "print settings.STATIC_ROOT").split("\n")[-1]
+                  "print settings.STATIC_ROOT", show=False).split("\n")[-1]
 
 
 @task
@@ -375,7 +384,7 @@ def create():
     print_command(user_sql.replace("'%s'" % pw, "'%s'" % shadowed))
     psql("CREATE DATABASE %s WITH OWNER %s ENCODING = 'UTF8' "
          "LC_CTYPE = '%s' LC_COLLATE = '%s' TEMPLATE template0;" %
-         (env.proj_name, env.proj_name, env.locale, env.locale))
+         (env.proj_db, env.proj_name, env.locale, env.locale))
 
     # Set up SSL certificate.
     conf_path = "/etc/nginx/conf"
@@ -386,8 +395,8 @@ def create():
         key_file = env.proj_name + ".key"
         if not exists(crt_file) and not exists(key_file):
             try:
-                crt_local, = glob(os.path.join("deploy", "*.crt"))
-                key_local, = glob(os.path.join("deploy", "*.key"))
+                crt_local, = glob(join("deploy", "*.crt"))
+                key_local, = glob(join("deploy", "*.key"))
             except ValueError:
                 parts = (crt_file, key_file, env.live_host)
                 sudo("openssl req -new -x509 -nodes -out %s -keyout %s "
@@ -436,7 +445,7 @@ def remove():
         remote_path = template["remote_path"]
         if exists(remote_path):
             sudo("rm %s" % remote_path)
-    psql("DROP DATABASE %s;" % env.proj_name)
+    psql("DROP DATABASE %s;" % env.proj_db)
     psql("DROP USER %s;" % env.proj_name)
 
 
@@ -508,8 +517,8 @@ def rollback():
         with update_changed_requirements():
             update = "git checkout" if env.git else "hg up -C"
             run("%s `cat last.commit`" % update)
-        with cd(os.path.join(static(), "..")):
-            run("tar -xf %s" % os.path.join(env.proj_path, "last.tar"))
+        with cd(join(static(), "..")):
+            run("tar -xf %s" % join(env.proj_path, "last.tar"))
         restore("last.db")
     restart()
 
@@ -524,3 +533,50 @@ def all():
     install()
     if create():
         deploy()
+############################################
+#kenbolton additions                       #
+#https://gist.github.com/kenbolton/4688803 #
+############################################
+
+@task
+@log_call
+#TODO fix: Doesn't gather files before attempting to tar.
+def download_media():
+    media = 'media.tar.gz'
+    run("tar -czvf %s/%s -C %s/static/media/" % (env.proj_path, media,
+        env.proj_path))
+    get('%s/%s' % (env.proj_path, media), media)
+
+@task
+@log_call
+def upload_media():
+    media = 'media.tar.gz'
+    put(media, '%s/static' % env.proj_path)
+    run("tar -xzvf %s/static/%s -C %s/static/" % (
+        env.proj_path, media, env.proj_path))
+
+@task
+@log_call
+def upload_db():
+    # Upload DB and dump it in.
+    put("dump.sql", env.proj_path)
+    postgres('dropdb %s' % env.proj_db)
+    postgres('createdb %s -O %s' % (env.proj_db, env.proj_name))
+    postgres('pg_restore -c -d %s %s/dump.sql' % (env.proj_db, env.proj_path))
+
+            
+@task
+@log_call
+def download_whatever(filename):
+    """
+    Download whatever
+    """
+    get('%s' % filename)
+@task
+@log_call
+def upload_whatever(filename):
+    """
+    Upload whatever
+    """
+    put('%s' % filename)
+
