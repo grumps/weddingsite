@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.forms.models import inlineformset_factory
-from wedme.playlistform.models import SubmitterForm, ArtistForm, Artist, Song, Submitter as Submitter_model
+from playlistform.models import SubmitterForm, ArtistForm, Artist, Song, Submitter as Submitter_model
 
 
 def playListAdd(request):
