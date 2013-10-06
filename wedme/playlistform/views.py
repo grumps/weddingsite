@@ -19,13 +19,14 @@ def playListAdd(request):
         submitter = SubmitterFormSet(request.POST)
         if artist.is_valid() and formset.is_valid() and submitter.is_valid():
             #get cleaned data & cast as string.
-            cleaned_artist = str((artist.cleaned_data['artist_id']))
-            artist_exists = Artist.objects.filter(artist_id=cleaned_artist).exists()
+            cleaned_artist_name = str((artist.cleaned_data['artist']))
+            cleaned_artist_id = str((artist.cleaned_data['artist_id']))
+            artist_exists = Artist.objects.filter(artist_id=cleaned_artist_id).exists()
 
             #add artist to db if artist isn't present.
             if not artist_exists:
                 artist.save()
-            artist_instance = Artist.objects.get(artist_id=cleaned_artist).pk
+            artist_instance = Artist.objects.get(artist_id=cleaned_artist_id).pk
 
             #use email for primary look up - for lack of better key. names can alter.
             submitted_email = str(submitter.cleaned_data['email'])
@@ -37,7 +38,6 @@ def playListAdd(request):
                 submitter_object.save()
 
             for form in formset:
-                #TODO add request count
                 song_title = str((form.cleaned_data['song']))
                 #get_or_create returns tuple of 'obj, [True if created]'
                 song_object, song_exists = Song.objects.get_or_create(song=song_title, artist_id=artist_instance)
@@ -45,7 +45,10 @@ def playListAdd(request):
                 if not (song_exists or Submitter_model.objects.filter(songs_added=song_object.pk).exists()):
                     song_object.request_count += 1
                     song_object.save()
+            #Submitter
 
+            #Query Sets for thank-you page
+            songs_requested = Song.objects.filter(artist=artist_instance).order_by('-modified', 'song')[:15]
         #redirect back to form.
         else:
             return render(request, 'add-a-jam.html', {
@@ -54,7 +57,11 @@ def playListAdd(request):
                           "submitter": submitter,
                           })
             #form processing complete
-        return render(request, 'index.html')
+        return render(request, 'thank-you.html', {
+                      "songs_requested": songs_requested,
+                      "submitter": submitter_object,
+                      "artist": cleaned_artist_name,
+                      })
     else:
         formset = SongFormInlineSet()
         artist = ArtistFormSet()

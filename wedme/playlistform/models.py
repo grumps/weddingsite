@@ -32,8 +32,8 @@ class Song(TimeStampedModel):
     Song title
     Song's Echonest ID
     """
+    #TODO rename this field. Will break: /wedme/playlistform/templates/thank-you.html:18 {{ song.song }}
     song = models.CharField(max_length=200)
-    request_count = models.IntegerField()
     artist = models.ForeignKey(Artist)
     request_count = models.IntegerField(default=1)
 
