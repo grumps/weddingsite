@@ -1,8 +1,7 @@
-Django==1.5.2
+Django==1.5.4
 Events==0.1.0
 Fabric==1.5.3
-Markdown==2.3.1
-Mezzanine==1.4.12
+Mezzanine==1.4.16
 Pillow==1.7.8
 South==0.7.6
 argparse==1.2.1
@@ -18,13 +17,12 @@ grappelli-safe==0.2.22
 html5lib==0.95
 icalendar==3.0.1b2
 jedi==0.5b5
-mezzanine-mdown==0.1a3
-oauthlib==0.5.1
+oauthlib==0.6.0
 paramiko==1.9.0
 pep8==1.4.4
 psycopg2==2.4.6
 pycrypto==2.6
-pytz==2013d
+pytz==2013.7
 requests==1.2.3
 requests-oauthlib==0.3.3
 wsgiref==0.1.2
