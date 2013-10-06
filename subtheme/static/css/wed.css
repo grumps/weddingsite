@@ -198,6 +198,7 @@ figure.fixedratio {
     box-shadow: none;
     border-radius: 0;
     border: none;
+    min-height: 765px
 }
 
 .note-img {
