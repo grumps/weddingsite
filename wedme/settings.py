@@ -167,6 +167,7 @@ DATABASES = {
     }
 }
 
+TEMPLATE_DEBUG = True
 
 #########
 # PATHS #
@@ -219,7 +220,6 @@ TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 ################
 
 INSTALLED_APPS = (
-    "template_debug",
     "subtheme",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -233,7 +233,7 @@ INSTALLED_APPS = (
     "mezzanine.conf",
     "mezzanine.core",
     "mezzanine.generic",
-    "mezzanine.blog",
+    #"mezzanine.blog",
     "mezzanine.forms",
     "mezzanine.pages",
     "mezzanine.galleries",
