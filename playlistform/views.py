@@ -19,7 +19,8 @@ def playListAdd(request):
         submitter = SubmitterFormSet(request.POST)
         if artist.is_valid() and formset.is_valid() and submitter.is_valid():
             #get cleaned data & cast as string.
-            cleaned_artist_name = str((artist.cleaned_data['artist']))
+            artist_name_encoded = (artist.cleaned_data['artist']).encode('UTF-8')
+            cleaned_artist_name = str(artist_name_encoded)
             cleaned_artist_id = str((artist.cleaned_data['artist_id']))
             artist_exists = Artist.objects.filter(artist_id=cleaned_artist_id).exists()
 
@@ -38,7 +39,8 @@ def playListAdd(request):
                 submitter_object.save()
 
             for form in formset:
-                song_title = str((form.cleaned_data['song']))
+                song_title_encoded = (form.cleaned_data['song']).encode('UTF-8')
+                song_title = str(song_title_encoded)
                 #get_or_create returns tuple of 'obj, [True if created]'
                 song_object, song_exists = Song.objects.get_or_create(song=song_title, artist_id=artist_instance)
                 submitter_object.songs_added.add(song_object)
