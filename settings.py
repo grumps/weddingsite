@@ -144,7 +144,7 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-
+DEFAULT_CHARSET='utf-8'
 #############
 # DATABASES #
 #############
@@ -239,8 +239,10 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     "mezzanine_events",
     "playlistform",
-    #"mezzanine.accounts",
+    "mezzanine.accounts",
     #"mezzanine.mobile",
+    "axes",
+
 )
 
 # List of processors used by RequestContext to populate the context.
@@ -278,6 +280,7 @@ MIDDLEWARE_CLASSES = (
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
+    "axes.middleware.FailedLoginMiddleware",
 )
 
 # Store these package names here as they may change in the future since
