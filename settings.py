@@ -144,7 +144,7 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-DEFAULT_CHARSET='utf-8'
+DEFAULT_CHARSET = 'utf-8'
 #############
 # DATABASES #
 #############
@@ -220,6 +220,7 @@ ALLOWED_HOSTS = ['come.sayidowith.us']
 
 INSTALLED_APPS = (
     "subtheme",
+    "rsvp_wedding",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -287,7 +288,19 @@ MIDDLEWARE_CLASSES = (
 # at the moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
+#########
+# USERS #
+#########
 
+# Settings for user accounts
+ACCOUNTS_NO_USERNAME = True
+AUTH_PROFILE_MODULE = "rsvp_wedding.PrimaryGuest"
+ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS = (
+    "first_name",
+    "last_name",
+    "signup_date",
+    "has_partner"
+)
 #########################
 # OPTIONAL APPLICATIONS #
 #########################
