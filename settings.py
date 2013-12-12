@@ -242,7 +242,8 @@ INSTALLED_APPS = (
     "playlistform",
     "mezzanine.accounts",
     #"mezzanine.mobile",
-    "axes",
+    #"axes",
+    "django_nopassword",
 
 )
 
@@ -281,7 +282,8 @@ MIDDLEWARE_CLASSES = (
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
-    "axes.middleware.FailedLoginMiddleware",
+    "django_nopassword.backends.EmailBackend",
+    #"axes.middleware.FailedLoginMiddleware",
 )
 
 # Store these package names here as they may change in the future since
@@ -295,12 +297,8 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 # Settings for user accounts
 ACCOUNTS_NO_USERNAME = True
 AUTH_PROFILE_MODULE = "rsvp_wedding.PrimaryGuest"
-ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS = (
-    "first_name",
-    "last_name",
-    "signup_date",
-    "has_partner"
-)
+ACCOUNT_ACTIVATION_DAYS = 1
+
 #########################
 # OPTIONAL APPLICATIONS #
 #########################
