@@ -295,9 +295,18 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 #########
 
 # Settings for user accounts
+AUTHENTICATION_BACKENDS = ( 'django_nopassword.backends.EmailBackend', )
 ACCOUNTS_NO_USERNAME = True
 AUTH_PROFILE_MODULE = "rsvp_wedding.PrimaryGuest"
 ACCOUNT_ACTIVATION_DAYS = 1
+
+#########################
+# Mailgun               #
+#########################
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+# Keys are stored in local_settings.py
+MAILGUN_ACCESS_KEY = 'ACCESS-KEY'
+MAILGUN_SERVER_NAME = 'SERVER-NAME'
 
 #########################
 # OPTIONAL APPLICATIONS #

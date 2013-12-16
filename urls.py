@@ -1,8 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-
 from mezzanine.core.views import direct_to_template
-
+from rsvp_wedding.views import RsvpStartView
 
 admin.autodiscover()
 
@@ -64,6 +63,11 @@ urlpatterns = patterns("",
 
                        #Playlist app
                        (r"^add-a-jam/", include("playlistform.urls")),
+
+                       # RSVP app
+                       (r'^rsvp/', RsvpStartView.as_view()),
+                       url(r'^accounts/', include('django_nopassword.urls')),
+
                        # If you'd like more granular control over the patterns in
                        # ``mezzanine.urls``, go right ahead and take the parts you want
                        # from it, and use them directly below instead of using
