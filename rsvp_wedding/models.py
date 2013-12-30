@@ -28,5 +28,5 @@ class PrimaryGuest(WeddingGuestModel, TimeStampedModel):
     is_allowed_partner = models.BooleanField()
 
 
-class GuestPartner(WeddingGuestModel, TimeStampedModel):
+class SecondPartner(WeddingGuestModel, TimeStampedModel):
     partner = models.OneToOneField(PrimaryGuest, related_name="guest_primary")
