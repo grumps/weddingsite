@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class WeddingGuestModel(models.Model):
     """
     An abstract base class model that provides basic data for guests.

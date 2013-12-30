@@ -300,6 +300,14 @@ ACCOUNTS_NO_USERNAME = True
 AUTH_PROFILE_MODULE = "rsvp_wedding.PrimaryGuest"
 ACCOUNT_ACTIVATION_DAYS = 1
 
+###########################
+# Authentication Settings #
+###########################
+
+LOGIN_EMAIL_SUBJECT = 'Link for Completing RSVP.'
+SERVER_EMAIL = 'rsvp@sayidowith.us'
+SERVER_URL = 'come.sayidowith.us'
+
 #########################
 # Mailgun               #
 #########################
