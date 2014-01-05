@@ -49,6 +49,17 @@
                     <div class="control-group row-fluid">
                        <input id="id_username" maxlength="30" name="username" type="text" placeholder="Your Email Address" class="span12 text-center">
                     </div>
+                {% if form.errors %}
+                    <div class="alert">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <p><strong>Oh boy something went wrong!</strong></p>
+                        <ul>
+                            {% for e in form.non_field_errors %}
+                                <li>{{ e }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
                 <div class="controls text-center">
                     <button type="submit" class="btn btn-success">{% trans "Confirm" %}</button>
                 </div>
@@ -59,6 +70,7 @@
     </div>
 
 </div>
+
 {% endblock %}
 {% block footer_extra %}
 

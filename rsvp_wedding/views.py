@@ -3,6 +3,7 @@ from django.views.generic.edit import FormView
 from django.shortcuts import render
 from django_nopassword.utils import USERNAME_FIELD
 from django_nopassword.models import LoginCode
+from django.utils.translation import ugettext_lazy as _
 
 class RsvpStartView(FormView):
     """
@@ -10,6 +11,14 @@ class RsvpStartView(FormView):
     """
     template_name = 'rsvp-step1.html'
     form_class = AuthenticationForm
+    # Override Error Messages from default form
+    AuthenticationForm.error_messages = {
+        'invalid_login': _("Please enter the email address we told you to use. "
+                           "Note that the field is case-sensitive and you should use all lower case letters. Contact us if you're having issues."),
+        'no_cookies': _("Your Web browser doesn't appear to have cookies "
+                        "enabled. Cookies are required for logging in."),
+        'inactive': _("This account is inactive."),
+    }
 
     def post(self, request, *args, **kwargs):
         form = AuthenticationForm(data=request.POST)
