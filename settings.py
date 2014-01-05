@@ -304,15 +304,14 @@ ACCOUNT_ACTIVATION_DAYS = 1
 # Authentication Settings #
 ###########################
 
-LOGIN_EMAIL_SUBJECT = 'Link for Completing RSVP.'
-SERVER_EMAIL = 'rsvp@sayidowith.us'
-SERVER_URL = 'come.sayidowith.us'
+LOGIN_EMAIL_SUBJECT = 'MY COOL SUBJECT'
+SERVER_EMAIL = 'MAIN@SETTINGS.PY'
+SERVER_URL = 'LOCALHOST'
 
 #########################
 # Mailgun               #
 #########################
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-# Keys are stored in local_settings.py
 MAILGUN_ACCESS_KEY = 'ACCESS-KEY'
 MAILGUN_SERVER_NAME = 'SERVER-NAME'
 
