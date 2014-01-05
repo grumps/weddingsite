@@ -3,11 +3,10 @@ from django.views.generic.edit import FormView
 from django.shortcuts import render
 from django_nopassword.utils import USERNAME_FIELD
 from django_nopassword.models import LoginCode
-from django.contrib.auth.models import User
 
 class RsvpStartView(FormView):
     """
-    This class subclasses django_nopassword.forms to start RSVP process.
+    Subclasses django_nopassword.forms to start RSVP process.
     """
     template_name = 'rsvp-step1.html'
     form_class = AuthenticationForm

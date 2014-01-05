@@ -18,17 +18,48 @@
 {% block title %}
 {% endblock %}
 {% block main %}
-<div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 25%;"></div>
-<form method="post" class="form-vertical">
-    {% csrf_token %}
-    {{ form.media }}
-    <div class="control-group row-fluid">
-        <input id="id_username" maxlength="30" name="username" type="text" style="text-align: center;" class="span12">
+
+    <div class="row">
+        <div class="span12">
+             <div class="text-center">
+                    <h3> Step 1</h3>
+
+                     <p class="lead">Confirm Your Email Address</p>
+                    <p><small><strong>Hint:</strong> We let you know you'd use this email address for the RSVP and we have
+                                           <a data-toggle="collapse" data-target="#instructions">instructions.</a></small></p>
+<div id="instructions" class="collapse">
+    <div class="alert alert-info span5 offset3">
+         <button type="button" class="close" data-toggle="collapse" data-target="#instructions">&times;</button>
+<h4>Step 1: Confirm Email</h4>
+    <p>We sent an email to you telling you that this is the email address you need to use to RSVP for you and your partner. If you don't know what it is email us, call us, or text us.</p>
+<h4>Step 2: Check Your Email</h4>
+    <p>Within a minute or two you'll get an email from rsvp@sayidowith.us click on the link in this email, and don't share the email with anyone.</p>
+<h4>Step 3: RSVP and Send!</h4>
+    <p>Select if you and your partner are attending the wedding, and let us know if you happen to be vegaterian.</p>
+</div>
     </div>
-    <div class="controls">
-        <button type="submit" class="btn">{% trans "Login" %}</button>
+                </div>
+            </div>
+        </div>
+<div class="row offset3">
+
+        <div class="well-rsvp span5 offset3">
+            <form method="post" class="form-vertical">
+                {% csrf_token %}
+                {{ form.media }}
+                    <div class="control-group row-fluid">
+                       <input id="id_username" maxlength="30" name="username" type="text"  class="span12">
+                    </div>
+                <div class="controls text-center">
+                    <button type="submit" class="btn btn-success">{% trans "Confirm" %}</button>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
+    </div>
+    </div>
+
+</div>
 {% endblock %}
 {% block footer_extra %}
 
