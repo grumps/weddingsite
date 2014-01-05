@@ -18,5 +18,18 @@
 {% block title %}
 {% endblock %}
 {% block main %}
-{{ wedding_guest }}
+
+    <div class="row">
+        <div class="span12">
+             <div class="text-center">
+                    <h3> Step 1.1</h3>
+                         <div class="progress progress-striped active">
+                         <div class="bar" style="width: 20%;"></div>
+                        </div>
+                     <p class="lead">We've sent you an email to the following address: {{ guest_email }}. Please click link in the email.</p>
+                     <p><small><strong>Note:</strong> The email expires in 15 Minutes. There's a small chance that it will end up in your Junk Mail. So if you take longer to click on the link, go back to
+                                           <a href="{{ SITE_URL }}/rsvp" >Step 1.</a></small></p>
+              </div>
+        </div>
+    </div>
 {% endblock %}
