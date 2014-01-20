@@ -134,7 +134,6 @@ TEMPLATE_LOADERS = (
     "django.template.loaders.app_directories.Loader",
 )
 
-AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -229,6 +228,7 @@ INSTALLED_APPS = (
     "django.contrib.sites",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
+    "django_nopassword",
     "mezzanine.boot",
     "mezzanine.conf",
     "mezzanine.core",
@@ -240,11 +240,10 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     "mezzanine_events",
     "playlistform",
-    "mezzanine.accounts",
+    "braces",
+    #"mezzanine.accounts",
     #"mezzanine.mobile",
     #"axes",
-    "django_nopassword",
-
 )
 
 # List of processors used by RequestContext to populate the context.
@@ -282,7 +281,6 @@ MIDDLEWARE_CLASSES = (
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
-    "django_nopassword.backends.EmailBackend",
     #"axes.middleware.FailedLoginMiddleware",
 )
 
@@ -295,9 +293,10 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 #########
 
 # Settings for user accounts
-AUTHENTICATION_BACKENDS = ( 'django_nopassword.backends.EmailBackend', )
+
+AUTHENTICATION_BACKENDS = ('django_nopassword.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',)
 ACCOUNTS_NO_USERNAME = True
-AUTH_PROFILE_MODULE = "rsvp_wedding.PrimaryGuest"
 ACCOUNT_ACTIVATION_DAYS = 1
 
 ###########################

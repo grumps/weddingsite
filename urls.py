@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from mezzanine.core.views import direct_to_template
-from rsvp_wedding.views import RsvpStartView
+from rsvp_wedding.views import RsvpStartView, RsvpStepTwoView
 
 admin.autodiscover()
 
@@ -51,7 +51,13 @@ urlpatterns = patterns("",
                        # page tree in the admin if it was installed.
 
                        # url("^$", "mezzanine.blog.views.blog_post_list", name="home"),
+                       #Playlist app
+                       (r"^add-a-jam/", include("playlistform.urls")),
 
+                       # RSVP app
+                       (r'^rsvp/', RsvpStartView.as_view()),
+                       (r'^rsvp/step2/', RsvpStepTwoView.as_view()),
+                       (r'^accounts/', include('django_nopassword.urls')),
                        # MEZZANINE'S URLS
                        # ----------------
                        # ADD YOUR OWN URLPATTERNS *ABOVE* THE LINE BELOW.
@@ -61,12 +67,7 @@ urlpatterns = patterns("",
                        #Events page
                        ("^", include("mezzanine_events.urls")),
 
-                       #Playlist app
-                       (r"^add-a-jam/", include("playlistform.urls")),
 
-                       # RSVP app
-                       (r'^rsvp/', RsvpStartView.as_view()),
-                       url(r'^accounts/', include('django_nopassword.urls')),
 
                        # If you'd like more granular control over the patterns in
                        # ``mezzanine.urls``, go right ahead and take the parts you want
