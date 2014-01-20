@@ -1,9 +1,14 @@
 from django_nopassword.forms import AuthenticationForm
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 from django.shortcuts import render
 from django_nopassword.utils import USERNAME_FIELD
 from django_nopassword.models import LoginCode
 from django.utils.translation import ugettext_lazy as _
+from django_nopassword.views import login_with_code
+from braces.views import LoginRequiredMixin
+from .models import PrimaryGuest
+from django.contrib.auth.models import User
+
 
 class RsvpStartView(FormView):
     """
@@ -24,14 +29,18 @@ class RsvpStartView(FormView):
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             code = LoginCode.objects.filter(**{'user__%s' % USERNAME_FIELD: request.POST.get('username')})[0]
-            code.next = request.GET.get('next')
+            code.next = '/rsvp/step2/'
             code.save()
             code.send_login_email()
             email = form.cleaned_data['username']
-
             return render(request, 'email-on-the-way.html', {
                 'guest_email': email,
             })
         else:
-            #TODO get error data back to form.
             return super(RsvpStartView, self).form_invalid(form)
+
+
+class RsvpStepTwoView(LoginRequiredMixin, UpdateView):
+    uid = request.user
+    print uid
+    model = PrimaryGuest

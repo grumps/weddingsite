@@ -1,13 +1,15 @@
 from django.db import models
+from django_nopassword.models import LoginCode
 
 
 class WeddingGuestModel(models.Model):
     """
     An abstract base class model that provides basic data for guests.
     """
+    will_arrive_thursday = models.BooleanField()
+    will_stay_saturday = models.BooleanField()
     will_attend = models.BooleanField()
     is_vegetarian = models.BooleanField()
-
     class Meta:
         abstract = True
 
@@ -30,3 +32,4 @@ class PrimaryGuest(WeddingGuestModel, TimeStampedModel):
 
 class SecondPartner(WeddingGuestModel, TimeStampedModel):
     partner = models.OneToOneField(PrimaryGuest, related_name="guest_primary")
+
