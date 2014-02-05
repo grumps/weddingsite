@@ -17,13 +17,13 @@
 {% endifinstalled %}
 
 {% compress css %}
+
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/mezzanine.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/wed.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/wed.responsive.css">
-
-
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/switches.css">
 {% ifinstalled cartridge.shop %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
 {% endifinstalled %}
@@ -33,6 +33,7 @@
 {% compress js %}
 <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}js/switches.js"></script>
 <script>
 $(function() {
     $('.middleinput:text, textarea').addClass('xlarge');
