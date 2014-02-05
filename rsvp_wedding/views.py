@@ -1,12 +1,14 @@
 from django_nopassword.forms import AuthenticationForm
 from django.views.generic.edit import FormView, UpdateView
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.shortcuts import render
 from django_nopassword.utils import USERNAME_FIELD
 from django_nopassword.models import LoginCode
 from django.utils.translation import ugettext_lazy as _
 from django_nopassword.views import login_with_code
 from braces.views import LoginRequiredMixin
-from .models import PrimaryGuest
+from .models import PrimaryGuest, PrimaryGuestForm, PartnerGuest, PartnerGuestForm
 from django.contrib.auth.models import User
 
 
@@ -40,7 +42,32 @@ class RsvpStartView(FormView):
             return super(RsvpStartView, self).form_invalid(form)
 
 
-class RsvpStepTwoView(LoginRequiredMixin, UpdateView):
-    uid = request.user
-    print uid
-    model = PrimaryGuest
+class PrimaryGuestRsvp(LoginRequiredMixin, UpdateView):
+    template_name = 'rsvp-step2.html'
+    login_url = '/rsvp/'
+    form_class = PrimaryGuestForm
+
+    def get_object(self, queryset=None):
+        #TODO Add Get or 404
+        primary = PrimaryGuestForm.Meta.model.objects.get(user=self.request.user)
+        if primary.is_allowed_partner:
+            self.success_url = '/rsvp/rsvp-step2/rsvp-for-partner/'
+        else:
+            self.success_url = '/rsvp/rsvp-complete/'
+        return primary
+
+class PartnerGuestRsvp(LoginRequiredMixin, UpdateView):
+    template_name = 'rsvp-step2.html'
+    login_url = '/rsvp/'
+    form_class = PartnerGuestForm
+    success_url = '/rsvp/rsvp-complete/'
+
+    def get_object(self, queryset=None):
+        #TODO Add Get or 404
+        primary = PrimaryGuest.objects.get(user=self.request.user.id).pk
+        partner = PartnerGuestForm.Meta.model.objects.get(primaryguest_id=primary)
+        return partner
+
+
+
+

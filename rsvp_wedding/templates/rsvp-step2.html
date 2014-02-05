@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+{% load mezzanine_tags keyword_tags %}
+{% block meta_title %}{{ page.meta_title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="span12">
+             <div class="text-center">
+                    <h3>Step 2</h3>
+                         <div class="progress progress-striped active">
+                         <div class="bar" style="width: 70%;"></div>
+                        </div>
+                     <p class="lead">Hi {{ user.first_name}} {{ user.last_name }} you're almost done, we have just a couple questions for you.</p>
+             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+             <div class="text-center">
+                {% crispy form %}
+             </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer_extra %}
+{% endblock %}
