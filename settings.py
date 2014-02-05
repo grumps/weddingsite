@@ -241,6 +241,7 @@ INSTALLED_APPS = (
     "mezzanine_events",
     "playlistform",
     "braces",
+    "crispy_forms",
     #"mezzanine.accounts",
     #"mezzanine.mobile",
     #"axes",
@@ -351,8 +352,8 @@ DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 #     "DB_PASS": "", # Live database password
 #     "ADMIN_PASS": "", # Live admin user password
 # }
-
-
+CRISPY_FAIL_SILENTLY = not DEBUG
+CRISPY_TEMPLATE_PACK = 'bootstrap'
 ##################
 # LOCAL SETTINGS #
 ##################
