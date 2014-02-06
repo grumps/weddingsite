@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% load mezzanine_tags keyword_tags %}
 {% block extra_head %}
-      <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.css' rel='stylesheet' />
-
+  <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.css' rel='stylesheet' />
   <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.js'></script>
 {% endblock %}
 {% block meta_title %}{{ page.meta_title }}{% endblock %}
@@ -28,6 +27,10 @@
 {% block footer_extra %}
 <script type='text/javascript'>
 var map = L.mapbox.map('map', 'grumps.h6ff3n5l');
+L.control.scale().addTo(map);
+</script>
+<script type='text/javascript'>
+var map2 = L.mapbox.map('map2', 'grumps.h6o8p0l4');
 L.control.scale().addTo(map);
 </script>
 {% endblock %}
