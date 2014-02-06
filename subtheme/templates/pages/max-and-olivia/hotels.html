@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% load mezzanine_tags keyword_tags %}
+{% block extra_head %}
+      <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.css' rel='stylesheet' />
 
+  <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.js'></script>
+{% endblock %}
 {% block meta_title %}{{ page.meta_title }}{% endblock %}
-
 {% block meta_keywords %}{% metablock %}
 {% keywords_for page as keywords %}
 {% for keyword in keywords %}
@@ -20,6 +23,7 @@
 {% endblock %}
 
 {% block main %}
+ {{ page.richtextpage.content|richtext_filters|safe }}
 {% endblock %}
 {% block footer_extra %}
 <script type='text/javascript'>
