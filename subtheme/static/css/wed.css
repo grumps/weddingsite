@@ -129,6 +129,8 @@ img {
 }
 .map {
     min-height: 500px;
+    max-width: 80%;
+
   }
 #about-us {
     padding-top:35px;
@@ -149,7 +151,8 @@ figure.fixedratio {
 
 #map {
     position:relative;
-     margin-bottom: 50px;
+    margin-bottom: 50px;
+    margin-top: 25px;
 }
 
 .hero-unit {
