@@ -10,13 +10,13 @@ class WeddingGuestModel(models.Model):
     An abstract base class model that provides basic data for guests.
     """
     ATTENDANCE = (
-        ('Y', "Will Be there"),
-        ('N', "Won't Be there."),
+        ('Y', "be"),
+        ('N', "not be"),
     )
 
     VEGGIE = (
-        ('Y', 'Vegetarian'),
-        ('N', 'Omnivore'),
+        ('Y', 'vegetarian.'),
+        ('N', 'omnivore.'),
     )
     will_arrive_thursday = models.CharField(max_length=1, choices=ATTENDANCE,)
     will_stay_saturday = models.CharField(max_length=1, choices=ATTENDANCE)
@@ -55,11 +55,15 @@ class PrimaryGuestForm(ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Submit'))
+        for key in self.fields:
+            if key == 'is_vegetarian':
+                self.fields[key].widget.attrs['class'] = 'span2'
+            else:
+                self.fields[key].widget.attrs['class'] = 'span1'
 
     class Meta:
         model = PrimaryGuest
-        fields = ['will_attend', 'will_arrive_thursday', 'will_stay_saturday', 'is_vegetarian']
-
+        fields = ['will_attend', 'is_vegetarian', 'will_arrive_thursday', 'will_stay_saturday' ]
 
 class PartnerGuestForm(ModelForm):
 
@@ -68,14 +72,6 @@ class PartnerGuestForm(ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Submit'))
-        self.helper.layout = Layout (
-            Div(
-                'has-switch',
-                'switch-animate',
-                'switch-off',
-            ),
-        )
-
 
     class Meta:
         model = PartnerGuest

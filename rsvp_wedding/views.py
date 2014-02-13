@@ -31,7 +31,7 @@ class RsvpStartView(FormView):
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             code = LoginCode.objects.filter(**{'user__%s' % USERNAME_FIELD: request.POST.get('username')})[0]
-            code.next = '/rsvp/step2/'
+            code.next = '/rsvp/rsvp-step2/'
             code.save()
             code.send_login_email()
             email = form.cleaned_data['username']
