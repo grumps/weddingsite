@@ -39,15 +39,16 @@
              {% csrf_token %}
                  {% for field in form %}
                      {% if forloop.counter = 1 %}
-                        <p>{{ user.first_name }} {{ user.last_name }} will {{ field }} attend Olivia and Max's wedding on May 16th, 2014.</p>
+                        <p>{{ user.first_name }} {{ user.last_name }} will {{ field }} attending Olivia and Max's wedding on May 16th, 2014.</p>
                      {% elif forloop.counter = 2 %}
+                        <div class="collapse" data-toggle="collapse" data-parent="#id_will_attend">
                         <p>{{ user.first_name }} would likely discribe their diet as a {{ field }}</p>
                      {% elif forloop.counter = 3 %}
                         <p>{{ user.first_name }} will {{ field }} arriving before 8PM on May 15th, 2014.</p>
                      {% elif forloop.counter = 4 %}
-                        <p>{{ user.first_name }} will {{ field }} leaving before mid afternoon on May 17th, 2014.</p>
+                        <p>{{ user.first_name }} will {{ field }} around for mid afternoon Lunch on May 17th, 2014.</p>
+                        </div>
                      {% endif %}
-
                  {% endfor %}
              </from>
              </div>
@@ -55,4 +56,5 @@
     </div>
 {% endblock %}
 {% block footer_extra %}
+    <script src="{{ STATIC_URL }}js/rsvp.js"></script>
 {% endblock %}

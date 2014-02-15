@@ -55,11 +55,6 @@ class PrimaryGuestForm(ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Submit'))
-        for key in self.fields:
-            if key == 'is_vegetarian':
-                self.fields[key].widget.attrs['class'] = 'span2'
-            else:
-                self.fields[key].widget.attrs['class'] = 'span1'
 
     class Meta:
         model = PrimaryGuest
