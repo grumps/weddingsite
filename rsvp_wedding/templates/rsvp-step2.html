@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 
 {% load i18n %}
 {% load mezzanine_tags keyword_tags %}
@@ -35,22 +34,52 @@
     <div class="row">
         <div class="span12">
              <div class="text-center">
-             <from id="rsvp" input="post">
+             <form id="rsvp" action="" method="post">
              {% csrf_token %}
-                 {% for field in form %}
+                {% for field in form %}
                      {% if forloop.counter = 1 %}
                         <p>{{ user.first_name }} {{ user.last_name }} will {{ field }} attending Olivia and Max's wedding on May 16th, 2014.</p>
+                         {% if field.errors %}
+                           <div class="alert span3 offset4">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong>Warning!</strong>{{ field.errors }}
+                            </div>
+                          {% endif %}
                      {% elif forloop.counter = 2 %}
                         <div class="collapse" data-toggle="collapse" data-parent="#id_will_attend">
                         <p>{{ user.first_name }} would likely discribe their diet as a {{ field }}</p>
+                         {% if field.errors %}
+                           <div class="alert span3 offset4">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong>Warning!</strong>{{ field.errors }}
+                            </div>
+                          {% endif %}
                      {% elif forloop.counter = 3 %}
                         <p>{{ user.first_name }} will {{ field }} arriving before 8PM on May 15th, 2014.</p>
+                          {% if field.errors %}
+                           <div class="alert span3 offset4">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong>Warning!</strong>{{ field.errors }}
+                            </div>
+                          {% endif %}
                      {% elif forloop.counter = 4 %}
                         <p>{{ user.first_name }} will {{ field }} around for mid afternoon Lunch on May 17th, 2014.</p>
+                         {% if field.errors %}
+                           <div class="alert span3 offset4">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong>Warning!</strong>{{ field.errors }}
+                            </div>
+                          {% endif %}
                         </div>
+
                      {% endif %}
                  {% endfor %}
-             </from>
+                <div class="row-fluid">
+                   <div class="form-actions">
+                    <button class="btn btn-primary btn-large">Next<i class="icon-chevron-right icon-white"></i></button>
+                    </div>
+                </div>
+             </form>
              </div>
         </div>
     </div>

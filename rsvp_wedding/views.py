@@ -55,7 +55,6 @@ class PrimaryGuestRsvp(LoginRequiredMixin, UpdateView):
         else:
             self.success_url = '/rsvp/rsvp-complete/'
         return primary
-
 class PartnerGuestRsvp(LoginRequiredMixin, UpdateView):
     template_name = 'rsvp-step2.html'
     login_url = '/rsvp/'
