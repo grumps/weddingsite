@@ -1,5 +1,6 @@
 from django_nopassword.forms import AuthenticationForm
 from django.views.generic.edit import FormView, UpdateView
+from django.views.generic import ListView
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.shortcuts import render
@@ -43,7 +44,7 @@ class RsvpStartView(FormView):
 
 
 class PrimaryGuestRsvp(LoginRequiredMixin, UpdateView):
-    template_name = 'rsvp-step2.html'
+    template_name = 'rsvp-step3.html'
     login_url = '/rsvp/'
     form_class = PrimaryGuestForm
 
@@ -55,8 +56,10 @@ class PrimaryGuestRsvp(LoginRequiredMixin, UpdateView):
         else:
             self.success_url = '/rsvp/rsvp-complete/'
         return primary
+
+
 class PartnerGuestRsvp(LoginRequiredMixin, UpdateView):
-    template_name = 'rsvp-step2.html'
+    template_name = 'rsvp-step3-partner.html'
     login_url = '/rsvp/'
     form_class = PartnerGuestForm
     success_url = '/rsvp/rsvp-complete/'
@@ -66,6 +69,30 @@ class PartnerGuestRsvp(LoginRequiredMixin, UpdateView):
         primary = PrimaryGuest.objects.get(user=self.request.user.id).pk
         partner = PartnerGuestForm.Meta.model.objects.get(primaryguest_id=primary)
         return partner
+
+
+class RSVPConfirmation(LoginRequiredMixin, ListView):
+    template_name = 'rsvp-complete.html'
+    login_url = '/rsvp/'
+    queryset = PrimaryGuest.objects.exclude(will_attend='')
+
+    """
+    def get_queryset(self):
+        primary = PrimaryGuestForm.Meta.model.objects.get(user=self.request.user)
+        if primary.is_allowed_partner:
+            queryset = PartnerGuest.objects.select_related().get(primaryguest_id=primary)
+            return queryset
+        else:
+            queryset = PrimaryGuestForm.Meta.model.objects.get(user=self.request.user)
+            return queryset
+    """
+    def get_context_data(self, **kwargs):
+        context = super(RSVPConfirmation, self).get_context_data(**kwargs)
+        primary = self.queryset.get(user=self.request.user)
+        context['primaryguest'] = primary
+        if primary.is_allowed_partner:
+            context['partnerguest'] = PartnerGuest.objects.get(primaryguest_id=primary)
+        return context
 
 
 

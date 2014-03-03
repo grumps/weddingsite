@@ -60,6 +60,7 @@ class PrimaryGuestForm(ModelForm):
         model = PrimaryGuest
         fields = ['will_attend', 'is_vegetarian', 'will_arrive_thursday', 'will_stay_saturday' ]
 
+
 class PartnerGuestForm(ModelForm):
 
     def __init__(self, *args, **kwargs):

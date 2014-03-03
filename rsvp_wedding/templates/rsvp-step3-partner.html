@@ -23,11 +23,11 @@
     <div class="row">
         <div class="span12">
              <div class="text-center">
-                    <h3>Step 2</h3>
+                    <h3>Step 3</h3>
                          <div class="progress progress-striped active">
                          <div class="bar" style="width: 70%;"></div>
                         </div>
-                     <p class="lead">Hi {{user.first_name}} {{ user.last_name }} you're almost done, we have just a couple questions for you.</p>
+                     <p class="lead">Hi {{user.first_name}} {{ user.last_name }} you're almost done, we have just a couple questions about {{ partnerguest.first_name }}.</p>
              </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
              {% csrf_token %}
                 {% for field in form %}
                      {% if forloop.counter = 1 %}
-                        <p>{{ user.first_name }} {{ user.last_name }} will {{ field }} attending Olivia and Max's wedding on May 16th, 2014.</p>
+                        <p>{{ partnerguest.first_name }} {{ partnerguest.last_name }} will {{ field }} attending Olivia and Max's wedding on May 16th, 2014.</p>
                          {% if field.errors %}
                            <div class="alert span3 offset4">
                               <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -47,7 +47,7 @@
                           {% endif %}
                      {% elif forloop.counter = 2 %}
                         <div class="collapse" data-toggle="collapse" data-parent="#id_will_attend">
-                        <p>{{ user.first_name }} would likely discribe their diet as a {{ field }}</p>
+                        <p>{{ partnerguest.first_name }} would likely discribe their diet as a {{ field }}</p>
                          {% if field.errors %}
                            <div class="alert span3 offset4">
                               <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -55,7 +55,7 @@
                             </div>
                           {% endif %}
                      {% elif forloop.counter = 3 %}
-                        <p>{{ user.first_name }} will {{ field }} arriving before 8PM on May 15th, 2014.</p>
+                        <p>{{ partnerguest.first_name }} will {{ field }} arriving before 8PM on May 15th, 2014.</p>
                           {% if field.errors %}
                            <div class="alert span3 offset4">
                               <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -63,7 +63,7 @@
                             </div>
                           {% endif %}
                      {% elif forloop.counter = 4 %}
-                        <p>{{ user.first_name }} will {{ field }} around for mid afternoon Lunch on May 17th, 2014.</p>
+                        <p>{{ partnerguest.first_name }} will {{ field }} around for mid afternoon Lunch on May 17th, 2014.</p>
                          {% if field.errors %}
                            <div class="alert span3 offset4">
                               <button type="button" class="close" data-dismiss="alert">&times;</button>

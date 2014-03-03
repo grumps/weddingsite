@@ -43,7 +43,7 @@
 <div class="row offset3">
 
         <div class="well-rsvp span5 offset3">
-            <form method="post" class="form-vertical">
+            <form method="post" action="" class="form-vertical">
                 {% csrf_token %}
                 {{ form.media }}
                     <div class="control-group row-fluid">
@@ -60,11 +60,11 @@
                         </ul>
                     </div>
                 {% endif %}
-
-            </form>
         <div class="controls text-center">
                     <button type="submit" class="btn btn-success">{% trans "Confirm" %}</button>
                 </div>
+            </form>
+
         </div>
     </div>
     </div>
