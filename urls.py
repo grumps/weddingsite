@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from mezzanine.core.views import direct_to_template
-from rsvp_wedding.views import RsvpStartView, PrimaryGuestRsvp, PartnerGuestRsvp
+from rsvp_wedding.views import RsvpStartView, PrimaryGuestRsvp, PartnerGuestRsvp, RSVPConfirmation
 
 admin.autodiscover()
 
@@ -58,7 +58,7 @@ urlpatterns = patterns("",
                        (r'^rsvp/$', RsvpStartView.as_view()),
                        (r'^rsvp/rsvp-step2/$', PrimaryGuestRsvp.as_view()),
                        (r'^rsvp/rsvp-step2/rsvp-for-partner/$', PartnerGuestRsvp.as_view()),
-                       (r'^rsvp/rsvp-complete/', direct_to_template,{'template': 'rsvp-complete.html'}),
+                       (r'^rsvp/rsvp-complete/', RSVPConfirmation.as_view()),
                        (r'^accounts/', include('django_nopassword.urls')),
                        # MEZZANINE'S URLS
                        # ----------------
