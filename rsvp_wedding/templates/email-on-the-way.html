@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load mezzanine_tags keyword_tags %}
+{% block meta_title %}{{ page.meta_title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% endblock %}
+{% block main %}
+
+    <div class="row">
+        <div class="span12">
+             <div class="text-center">
+                    <h3> Step 1.1</h3>
+                         <div class="progress progress-striped active">
+                         <div class="bar" style="width: 20%;"></div>
+                        </div>
+                     <p class="lead">We've sent you an email to the following address: {{ guest_email }}. Please click the link in your email.</p>
+                     <p><small><strong>Gmail Users:</strong>This email will likely show up in the Promotions tab. So check there and <a href="https://support.google.com/mail/answer/3055016?hl=en">here's how.</a></p>
+                     <p><small><strong>Note:</strong> The email's link will only work for 15 Minutes. If you take too long, go back to
+                                           <a href="{{ SITE_URL }}/rsvp" >Step 1.</a></small></p>
+              </div>
+        </div>
+    </div>
+{% endblock %}

@@ -134,7 +134,6 @@ TEMPLATE_LOADERS = (
     "django.template.loaders.app_directories.Loader",
 )
 
-AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -144,7 +143,7 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-
+DEFAULT_CHARSET = 'utf-8'
 #############
 # DATABASES #
 #############
@@ -220,6 +219,7 @@ ALLOWED_HOSTS = ['come.sayidowith.us']
 
 INSTALLED_APPS = (
     "subtheme",
+    "rsvp_wedding",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -228,6 +228,7 @@ INSTALLED_APPS = (
     "django.contrib.sites",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
+    "django_nopassword",
     "mezzanine.boot",
     "mezzanine.conf",
     "mezzanine.core",
@@ -239,8 +240,11 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     "mezzanine_events",
     "playlistform",
+    "braces",
+    "crispy_forms",
     #"mezzanine.accounts",
     #"mezzanine.mobile",
+    #"axes",
 )
 
 # List of processors used by RequestContext to populate the context.
@@ -278,12 +282,38 @@ MIDDLEWARE_CLASSES = (
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
+    #"axes.middleware.FailedLoginMiddleware",
 )
 
 # Store these package names here as they may change in the future since
 # at the moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
+#########
+# USERS #
+#########
+
+# Settings for user accounts
+
+AUTHENTICATION_BACKENDS = ('django_nopassword.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',)
+ACCOUNTS_NO_USERNAME = True
+ACCOUNT_ACTIVATION_DAYS = 1
+
+###########################
+# Authentication Settings #
+###########################
+
+LOGIN_EMAIL_SUBJECT = 'MY COOL SUBJECT'
+SERVER_EMAIL = 'MAIN@SETTINGS.PY'
+SERVER_URL = 'LOCALHOST'
+
+#########################
+# Mailgun               #
+#########################
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+MAILGUN_ACCESS_KEY = 'ACCESS-KEY'
+MAILGUN_SERVER_NAME = 'SERVER-NAME'
 
 #########################
 # OPTIONAL APPLICATIONS #
@@ -322,8 +352,8 @@ DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 #     "DB_PASS": "", # Live database password
 #     "ADMIN_PASS": "", # Live admin user password
 # }
-
-
+CRISPY_FAIL_SILENTLY = not DEBUG
+CRISPY_TEMPLATE_PACK = 'bootstrap'
 ##################
 # LOCAL SETTINGS #
 ##################
