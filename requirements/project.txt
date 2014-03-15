@@ -14,7 +14,7 @@ django-crispy-forms==1.4.0
 django-debug-toolbar==0.9.4
 django-mailgun==0.2.2
 django-model-utils==1.5.0
-django-nopassword==0.5.0
+git+https://github.com/grumps/django-nopassword.git@add-subject-as-setting#egg=django-nopassword
 django-template-debug==0.3.3
 feedparser==5.1.3
 filebrowser-safe==0.2.28
