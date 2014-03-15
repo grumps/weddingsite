@@ -290,7 +290,7 @@ select {
     margin-top: 15px;
 }
 #id_will_stay_saturday, #id_will_arrive_thursday, #id_will_attend, select {
-    width: 5em;
+    width: 5.5em;
 }
 #id_is_vegetarian, select {
     width: 8em;
