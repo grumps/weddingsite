@@ -58,7 +58,7 @@ class PrimaryGuestForm(ModelForm):
 
     class Meta:
         model = PrimaryGuest
-        fields = ['will_attend', 'is_vegetarian', 'will_arrive_thursday', 'will_stay_saturday' ]
+        fields = ['will_attend', 'is_vegetarian', 'will_arrive_thursday', 'will_stay_saturday']
 
 
 class PartnerGuestForm(ModelForm):
@@ -71,4 +71,4 @@ class PartnerGuestForm(ModelForm):
 
     class Meta:
         model = PartnerGuest
-        fields = ['will_attend', 'will_arrive_thursday', 'will_stay_saturday', 'is_vegetarian']
+        fields = ['will_attend', 'is_vegetarian', 'will_arrive_thursday', 'will_stay_saturday']
