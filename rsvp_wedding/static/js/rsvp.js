@@ -19,6 +19,7 @@ $('#id_will_attend').on('change', function(e) {
 $(document).ready(function(){
     if($('#id_will_attend').val() === "Y"){
         $('.collapse').collapse('show')
+        FirstTime = 'n';
     }
     else if ($('#id_will_attend').val() === ""){
         FirstTime = 'y';
