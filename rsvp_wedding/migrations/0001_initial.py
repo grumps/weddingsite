@@ -11,10 +11,10 @@ class Migration(SchemaMigration):
         # Adding model 'PrimaryGuest'
         db.create_table(u'rsvp_wedding_primaryguest', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('will_arrive_thursday', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('will_stay_saturday', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('will_attend', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_vegetarian', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('will_arrive_thursday', self.gf('django.db.models.fields.CharField')(max_length=1)),
+            ('will_stay_saturday', self.gf('django.db.models.fields.CharField')(max_length=1)),
+            ('will_attend', self.gf('django.db.models.fields.CharField')(max_length=1)),
+            ('is_vegetarian', self.gf('django.db.models.fields.CharField')(max_length=1)),
             ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('modified', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
@@ -22,26 +22,28 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'rsvp_wedding', ['PrimaryGuest'])
 
-        # Adding model 'SecondPartner'
-        db.create_table(u'rsvp_wedding_secondpartner', (
+        # Adding model 'PartnerGuest'
+        db.create_table(u'rsvp_wedding_partnerguest', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('will_arrive_thursday', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('will_stay_saturday', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('will_attend', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_vegetarian', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('will_arrive_thursday', self.gf('django.db.models.fields.CharField')(max_length=1)),
+            ('will_stay_saturday', self.gf('django.db.models.fields.CharField')(max_length=1)),
+            ('will_attend', self.gf('django.db.models.fields.CharField')(max_length=1)),
+            ('is_vegetarian', self.gf('django.db.models.fields.CharField')(max_length=1)),
             ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('modified', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('partner', self.gf('django.db.models.fields.related.OneToOneField')(related_name='guest_primary', unique=True, to=orm['rsvp_wedding.PrimaryGuest'])),
+            ('first_name', self.gf('django.db.models.fields.CharField')(default='NULL', max_length=140)),
+            ('last_name', self.gf('django.db.models.fields.CharField')(default='NULL', max_length=140)),
+            ('primaryguest', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['rsvp_wedding.PrimaryGuest'])),
         ))
-        db.send_create_signal(u'rsvp_wedding', ['SecondPartner'])
+        db.send_create_signal(u'rsvp_wedding', ['PartnerGuest'])
 
 
     def backwards(self, orm):
         # Deleting model 'PrimaryGuest'
         db.delete_table(u'rsvp_wedding_primaryguest')
 
-        # Deleting model 'SecondPartner'
-        db.delete_table(u'rsvp_wedding_secondpartner')
+        # Deleting model 'PartnerGuest'
+        db.delete_table(u'rsvp_wedding_partnerguest')
 
 
     models = {
@@ -81,28 +83,30 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'rsvp_wedding.partnerguest': {
+            'Meta': {'object_name': 'PartnerGuest'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'default': "'NULL'", 'max_length': '140'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_vegetarian': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'default': "'NULL'", 'max_length': '140'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'primaryguest': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['rsvp_wedding.PrimaryGuest']"}),
+            'will_arrive_thursday': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'will_attend': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'will_stay_saturday': ('django.db.models.fields.CharField', [], {'max_length': '1'})
+        },
         u'rsvp_wedding.primaryguest': {
             'Meta': {'object_name': 'PrimaryGuest'},
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_allowed_partner': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_vegetarian': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'is_vegetarian': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'}),
-            'will_arrive_thursday': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'will_attend': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'will_stay_saturday': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
-        },
-        u'rsvp_wedding.secondpartner': {
-            'Meta': {'object_name': 'SecondPartner'},
-            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_vegetarian': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'partner': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'guest_primary'", 'unique': 'True', 'to': u"orm['rsvp_wedding.PrimaryGuest']"}),
-            'will_arrive_thursday': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'will_attend': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'will_stay_saturday': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
+            'will_arrive_thursday': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'will_attend': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'will_stay_saturday': ('django.db.models.fields.CharField', [], {'max_length': '1'})
         }
     }
 
