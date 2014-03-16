@@ -1,10 +1,15 @@
 //Fade in extras on Y condition
+
+var FirstTime;
+
 $('#id_will_attend').on('change', function(e) {
     if ($(this).val() === "Y") {
         $('.collapse').collapse('show')
         }
     else if ($(this).val() === "N") {
-        $('.collapse').collapse('hide')
+        if (FirstTime !== 'y'){
+            $('.collapse').collapse('hide')
+        }
         //TODO scalable code needed.
         $('#id_is_vegetarian').val('N')
         $('#id_will_arrive_thursday').val('N')
@@ -14,5 +19,8 @@ $('#id_will_attend').on('change', function(e) {
 $(document).ready(function(){
     if($('#id_will_attend').val() === "Y"){
         $('.collapse').collapse('show')
+    }
+    else if ($('#id_will_attend').val() === ""){
+        FirstTime = 'y';
     }
 });
