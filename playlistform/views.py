@@ -6,6 +6,7 @@ from playlistform.models import SubmitterForm, ArtistForm, Artist, Song, Submitt
 def playListAdd(request):
     """
     Handles all playlist add requests.
+    Also in retrospect this is ugly.
     """
 
     SongFormInlineSet = inlineformset_factory(Artist, Song, can_delete=False,
@@ -39,14 +40,18 @@ def playListAdd(request):
                 submitter_object.save()
 
             for form in formset:
-                song_title_encoded = (form.cleaned_data['song']).encode('UTF-8')
-                song_title = str(song_title_encoded)
-                #get_or_create returns tuple of 'obj, [True if created]'
-                song_object, song_exists = Song.objects.get_or_create(song=song_title, artist_id=artist_instance)
-                submitter_object.songs_added.add(song_object)
-                if not (song_exists or Submitter_model.objects.filter(songs_added=song_object.pk).exists()):
-                    song_object.request_count += 1
-                    song_object.save()
+                try:
+                    song_title_encoded = (form.cleaned_data['song']).encode('UTF-8')
+                    song_title = str(song_title_encoded)
+                    #get_or_create returns tuple of 'obj, [True if created]'
+                    song_object, song_exists = Song.objects.get_or_create(song=song_title, artist_id=artist_instance)
+                    submitter_object.songs_added.add(song_object)
+                    if not (song_exists or Submitter_model.objects.filter(songs_added=song_object.pk).exists()):
+                        song_object.request_count += 1
+                        song_object.save()
+                except KeyError:
+                    pass
+
             #Submitter
 
             #Query Sets for thank-you page
