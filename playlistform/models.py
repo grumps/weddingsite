@@ -47,9 +47,9 @@ class Submitter(TimeStampedModel):
     Created date
     Modified date
     """
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=200)
-    email = models.EmailField()
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=200, blank=True)
+    email = models.EmailField(blank=True)
     songs_added = models.ManyToManyField(Song)
 
 
