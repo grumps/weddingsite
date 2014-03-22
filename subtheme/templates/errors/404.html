@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load index_extra %}
+{% block meta_title %}{% trans "Home" %}{% endblock %}
+
+{% block breadcrumb_menu %}
+{% endblock %}
+{% block extra_js %}
+
+{% endblock %}
+{% block main %}
+<div class="span6 text-center">
+<h1>Oh No, Perhaps you waited too long to click the link in the email?</h1>
+<a href="/rsvp" class="btn btn-large btn-block btn-info">
+				Try Sending the Email Again!
+			</a>
+</div>
+{% endblock %}
