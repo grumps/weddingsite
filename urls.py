@@ -55,11 +55,12 @@ urlpatterns = patterns("",
                        (r"^add-a-jam/", include("playlistform.urls")),
 
                        # RSVP app
-                       (r'^rsvp/$', RsvpStartView.as_view()),
-                       (r'^rsvp/rsvp-step2/$', PrimaryGuestRsvp.as_view()),
-                       (r'^rsvp/rsvp-step2/rsvp-for-partner/$', PartnerGuestRsvp.as_view()),
-                       (r'^rsvp/rsvp-complete/', RSVPConfirmation.as_view()),
-                       (r'^accounts/', include('django_nopassword.urls')),
+                       #(r'^rsvp/$', RsvpStartView.as_view()),
+                       #(r'^rsvp/rsvp-step2/$', PrimaryGuestRsvp.as_view()),
+                       #(r'^rsvp/rsvp-step2/rsvp-for-partner/$', PartnerGuestRsvp.as_view()),
+                       #(r'^rsvp/rsvp-complete/', RSVPConfirmation.as_view()),
+                       #(r'^accounts/', include('django_nopassword.urls')),
+                       #url(r'^login-code/(?P<login_code>[a-zA-Z0-9]+)/$', RsvpStartView.as_view(expired=True)),
                        # MEZZANINE'S URLS
                        # ----------------
                        # ADD YOUR OWN URLPATTERNS *ABOVE* THE LINE BELOW.

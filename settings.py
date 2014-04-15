@@ -219,7 +219,7 @@ ALLOWED_HOSTS = ['come.sayidowith.us']
 
 INSTALLED_APPS = (
     "subtheme",
-    "rsvp_wedding",
+    #"rsvp_wedding",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
